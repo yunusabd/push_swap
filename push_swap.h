@@ -6,7 +6,7 @@
 /*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/14 16:55:38 by aschukin          #+#    #+#             */
-/*   Updated: 2018/05/05 16:51:33 by aschukin         ###   ########.fr       */
+/*   Updated: 2018/05/05 18:42:32 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ typedef struct	s_clist
 	struct s_clist	*prev;
 }				t_clist;
 
-
-
 /*
 ** Create, add to, and remove from Circular List
 */
@@ -42,7 +40,7 @@ void		remove_element(t_clist *element);
 void		remove_first_element(t_clist *head);
 void		remove_last_element(t_clist *head);
 
-t_clist		*parser(char *str);
+t_clist		*parser(char **av);
 int			check_duplicate(t_clist *head);
 
 #endif

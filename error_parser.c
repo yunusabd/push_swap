@@ -6,7 +6,7 @@
 /*   By: dhojt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 14:50:07 by dhojt             #+#    #+#             */
-/*   Updated: 2018/05/05 17:05:54 by aschukin         ###   ########.fr       */
+/*   Updated: 2018/05/05 19:09:48 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 #include <limits.h>
 #include <stdio.h>
 
-// TODO check all digits, spaces, look for duplicates
+/*
+** Traverse through the list and check if a number occurs twice.
+*/
 
-int		check_duplicate(t_clist *head)
+int			check_duplicate(t_clist *head)
 {
 	t_clist *tmp1;
 	t_clist	*tmp2;
@@ -38,16 +40,15 @@ int		check_duplicate(t_clist *head)
 	return (1);
 }
 
-t_clist	*parser(char *str)
+/*
+** Check if the input string only contains '+', '-', ' ' or digits.
+*/
+
+int			check_content(const char *str)
 {
-	t_clist	*astack;
-	size_t	test;
-	long	tmp;
 	int		i;
-	long	j;
 
 	i = 0;
-	astack = NULL;
 	while (str[i])
 	{
 		if (str[i] == ' ')
@@ -63,21 +64,42 @@ t_clist	*parser(char *str)
 		else
 			error_exit("Error\n", 1);
 	}
+	return (1);
+}
+
+/*
+** If the number has more than 11 digits, it can't fit into an int -> error.
+*/
+
+static int	check_numlen(const char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] != '\0' && (str[i] == '-' ||
+				str[i] == '+' || ft_isdigit(str[i])))
+	{
+		i++;
+		if (i > 11)
+			error_exit("Error\n", 1);
+	}
+	return (i);
+}
+
+t_clist		*fill_stack(const char *str, t_clist *astack)
+{
+	long	tmp;
+	int		i;
+	int		j;
+
 	i = 0;
 	while (str[i])
 	{
-		j = 0;
 		while (str[i] != '\0' && str[i] == ' ')
 			i++;
-		while (str[i + j] != '\0' && (str[i + j] == '-' ||
-					str[i + j] == '+' || ft_isdigit(str[i + j])))
-		{
-			j++;
-			if (j > 11)
-				error_exit("Error\n", 1);
-		}
+		j = check_numlen(str + i);
 		if (str[i] == '\0')
-			break;
+			break ;
 		tmp = ft_atoi_long(str + i);
 		if (tmp > 2147483647 || tmp < -2147483648)
 			error_exit("Error\n", 1);
@@ -85,7 +107,23 @@ t_clist	*parser(char *str)
 			astack = create_clist(astack, tmp);
 		else
 			add_to_tail(astack, tmp);
-		str = str + j;
+		i += j;
+	}
+	return (astack);
+}
+
+t_clist		*parser(char **av)
+{
+	int			i;
+	t_clist		*astack;
+
+	astack = NULL;
+	i = 1;
+	while (av[i])
+	{
+		check_content(av[i]);
+		astack = fill_stack(av[i], astack);
+		i++;
 	}
 	return (astack);
 }
