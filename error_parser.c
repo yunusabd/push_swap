@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_parser.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhojt <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/04 14:50:07 by dhojt             #+#    #+#             */
-/*   Updated: 2018/05/05 19:09:48 by yabdulha         ###   ########.fr       */
+/*   Created: 2018/05/05 22:04:32 by yabdulha          #+#    #+#             */
+/*   Updated: 2018/05/05 22:08:08 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static int	check_numlen(const char *str)
 	return (i);
 }
 
-t_clist		*fill_stack(const char *str, t_clist *astack)
+t_clist		*fill_stack(const char *str, t_clist *a)
 {
 	long	tmp;
 	int		i;
@@ -103,27 +103,25 @@ t_clist		*fill_stack(const char *str, t_clist *astack)
 		tmp = ft_atoi_long(str + i);
 		if (tmp > 2147483647 || tmp < -2147483648)
 			error_exit("Error\n", 1);
-		if (!astack)
-			astack = create_clist(astack, tmp);
+		if (!a)
+			a = create_clist(tmp);
 		else
-			add_to_tail(astack, tmp);
+			add_to_tail(a, tmp);
 		i += j;
 	}
-	return (astack);
+	return (a);
 }
 
-t_clist		*parser(char **av)
+void		parser(char **av, t_frame *stacks)
 {
 	int			i;
-	t_clist		*astack;
 
-	astack = NULL;
+	stacks->a = NULL;
 	i = 1;
 	while (av[i])
 	{
 		check_content(av[i]);
-		astack = fill_stack(av[i], astack);
+		stacks->a = fill_stack(av[i], stacks->a);
 		i++;
 	}
-	return (astack);
 }

@@ -6,7 +6,7 @@
 /*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/14 18:20:38 by aschukin          #+#    #+#             */
-/*   Updated: 2018/05/05 15:46:35 by aschukin         ###   ########.fr       */
+/*   Updated: 2018/05/05 22:07:21 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@
  ** Create + add to a Circular linked list
  */
 
-t_clist*	create_clist(t_clist *tmp, int data)
+t_clist*	create_clist(int data)
 {
 	t_clist	*head;
 
-	tmp = head;
 	if (!(head = (t_clist*)malloc(sizeof(*head))))
 		return (NULL);
 	if (head)
