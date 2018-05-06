@@ -1,14 +1,22 @@
-NAME = push_swap
+NAME1 = checker
+NAME2 = push_swap
 
 SRCS_PATH = srcs
-SRC_FILES = main.c create_clist.c error_parser.c remove_clist.c swap.c \
+SRC_FILES1 = checker.c create_clist.c error_parser.c remove_clist.c swap.c \
 			rotate.c reverse_rotate.c push.c error_handler.c print_stacks.c \
 			get_input.c get_next_line.c jump_table.c check_sorted.c
-SRCS = $(addprefix $(SRCS_PATH)/,$(SRC_FILES))
+SRC_FILES2 = push_swap.c create_clist.c error_parser.c remove_clist.c swap.c \
+			rotate.c reverse_rotate.c push.c error_handler.c print_stacks.c \
+			jump_table.c check_sorted.c
+
+SRCS1 = $(addprefix $(SRCS_PATH)/,$(SRC_FILES1))
+SRCS2 = $(addprefix $(SRCS_PATH)/,$(SRC_FILES2))
 
 OBJS_PATH = objects
-OBJS_NAME = $(SRC_FILES:.c=.o)
-OBJS = $(addprefix $(OBJS_PATH)/,$(OBJS_NAME))
+OBJS_NAME1 = $(SRC_FILES1:.c=.o)
+OBJS_NAME2 = $(SRC_FILES2:.c=.o)
+OBJS1 = $(addprefix $(OBJS_PATH)/,$(OBJS_NAME1))
+OBJS2 = $(addprefix $(OBJS_PATH)/,$(OBJS_NAME2))
 
 INCLUDES_PATH = includes
 
@@ -20,24 +28,38 @@ CFLAGS = -Wall -Wextra -Werror
 LIBFT_PATH = libft
 LIB = $(addprefix $(LIBFT_PATH)/,libft.a)
 
-.SILENT: all, clean, fclean, re
-.PHONY: all, clean, fclean, re
+.SILENT: all, clean, fclean, re, ch, pw
+.PHONY: all, clean, fclean, re, ch, pw
 
-all: $(NAME)
+ch: $(NAME1)
 
-$(NAME): libftcomp $(OBJS) $(LIB)
+pw: $(NAME2)
+
+all: $(NAME1) $(NAME2)
+
+$(NAME1): libftcomp $(OBJS1) $(LIB)
+	@echo "\033[31;5;mCompiling checker...\033[0m"
+	gcc $(SRCS1) $(CFLAGS) -I$(INCLUDES_PATH) $(LIB) -o $(NAME1)
+	@echo "\033[32;3m\nCompiling Done !\033[0m"
+
+$(NAME2): libftcomp $(OBJS2) $(LIB)
 	@echo "\033[31;5;mCompiling push_swap...\033[0m"
-	gcc $(SRCS) $(CFLAGS) -I$(INCLUDES_PATH) $(LIB) -o $(NAME)
+	gcc $(SRCS2) $(CFLAGS) -I$(INCLUDES_PATH) $(LIB) -o $(NAME2)
 	@echo "\033[32;3m\nCompiling Done !\033[0m"
 
 libftcomp:
 	@echo "\033[31;5;mCompiling libft...\033[0m"
 	@make all -C libft/
 
-$(OBJS): $(OBJS_PATH) $(SRCS) $(INCLUDES_PATH)
+$(OBJS1): $(OBJS_PATH) $(SRCS1) $(INCLUDES_PATH)
 	@echo "compiling source"
-	gcc -c $(SRCS) $(CFLAGS) -I$(INCLUDES_PATH) -I$(LIBFT_PATH)
-	@mv $(OBJS_NAME) $(OBJS_PATH)
+	gcc -c $(SRCS1) $(CFLAGS) -I$(INCLUDES_PATH) -I$(LIBFT_PATH)
+	@mv $(OBJS_NAME1) $(OBJS_PATH)
+
+$(OBJS2): $(OBJS_PATH) $(SRCS2) $(INCLUDES_PATH)
+	@echo "compiling source"
+	gcc -c $(SRCS2) $(CFLAGS) -I$(INCLUDES_PATH) -I$(LIBFT_PATH)
+	@mv $(OBJS_NAME2) $(OBJS_PATH)
 
 $(OBJS_PATH):
 	@mkdir $(OBJS_PATH) 2> /dev/null || true
@@ -49,14 +71,14 @@ $(INCLUDES_PATH):
 clean:
 	@echo "\033[32;5mCleaning..."
 	@make clean -C libft/
-	@rm -f $(OBJS)
+	@rm -f $(OBJS1) $(OBJS2)
 	@rmdir $(OBJS_PATH) 2> /dev/null || true
 	@echo "\033[32;3mCleaning Done !\n\033[0m"
 
 fclean: clean
 	@echo "\033[32;5mFcleaning..."
 	@make fclean -C libft/
-	@rm -f $(NAME)
+	@rm -f $(NAME1) $(NAME2)
 	@echo "\033[32;3mFcleaning Done !\n\033[0m"
 
 re: fclean all
