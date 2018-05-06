@@ -3,32 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strclr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/21 14:52:37 by aschukin          #+#    #+#             */
-/*   Updated: 2017/11/28 14:32:43 by aschukin         ###   ########.fr       */
+/*   Created: 2017/11/22 20:24:43 by yabdulha          #+#    #+#             */
+/*   Updated: 2017/12/01 17:26:43 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-** Sets every character of the string to the value of '\0'
-*/
 
 #include "libft.h"
 
 void	ft_strclr(char *s)
 {
-	int i;
-	int len;
+	int	i;
 
 	if (s)
 	{
-		i = 0;
-		len = ft_strlen(s);
-		while (i < len)
+		i = ft_strlen(s);
+		while (i)
 		{
 			s[i] = '\0';
-			i++;
+			i--;
 		}
+		s[i] = '\0';
 	}
 }

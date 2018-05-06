@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/21 11:59:25 by aschukin          #+#    #+#             */
-/*   Updated: 2018/04/09 16:01:46 by aschukin         ###   ########.fr       */
+/*   Created: 2017/11/22 20:17:00 by yabdulha          #+#    #+#             */
+/*   Updated: 2017/11/29 19:10:15 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-** Allocates with malloc and returns a 'fresh' string ending with '\0'.
-** Each character of the string is initialized at '\0'
-** If the allocation fails, the funciton returns NULL.
-*/
 
 #include "libft.h"
 
 char	*ft_strnew(size_t size)
 {
 	char	*new;
+	size_t	i;
 
-	if (!(new = (char*)malloc((size + 1) * sizeof(char))))
+	i = 0;
+	if (!(new = (char*)malloc(sizeof(*new) * size + 1)))
 		return (NULL);
-	ft_bzero(new, size + 1);
+	while (i <= size)
+	{
+		new[i] = '\0';
+		i++;
+	}
 	return (new);
 }

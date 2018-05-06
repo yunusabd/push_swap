@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_count.c                                         :+:      :+:    :+:   */
+/*   ft_numlen_umax.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/27 19:31:15 by aschukin          #+#    #+#             */
-/*   Updated: 2018/03/28 14:11:04 by aschukin         ###   ########.fr       */
+/*   Created: 2018/03/14 12:35:25 by yabdulha          #+#    #+#             */
+/*   Updated: 2018/03/14 20:22:26 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** Returns the length of a number, with an additional space for the '-' for
+** negative numbers.
+*/
+
 #include "libft.h"
 
-intmax_t	ft_count(intmax_t num)
+int		ft_numlen_umax(uintmax_t nb, int base)
 {
-	intmax_t	count;
-	uintmax_t	neg;
+	int	len;
 
-	count = 0;
-	if (num <= 0)
-	{
-		neg = -num;
-		count++;
-	}
-	if (!count)
-		while (num > 0)
-		{
-			num /= 10;
-			count++;
-		}
-	else
-		while (neg > 0)
-		{
-			neg /= 10;
-			count++;
-		}
-	return (count);
+	if (base < 2)
+		return (0);
+	len = 1;
+	while ((nb /= base))
+		len++;
+	return (len);
 }

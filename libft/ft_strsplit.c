@@ -3,75 +3,77 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/23 12:41:17 by aschukin          #+#    #+#             */
-/*   Updated: 2017/11/28 14:58:30 by aschukin         ###   ########.fr       */
+/*   Created: 2017/11/23 18:10:01 by yabdulha          #+#    #+#             */
+/*   Updated: 2017/12/05 21:18:13 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-** Allocates (with malloc(3)) and returns an array of “fresh” strings
-** (all ending with ’\0’, including the array itself) obtained
-** by spliting s using the character c as a delimiter.
-** If the allocation fails the function returns NULL.
-**
-** len = total # of words we expect and allocate for
-** count = the # of words we've gone through
-** i = character index counter
-**
-** line 68: Once we know the length of the current word,
-** use its length to get the substring of our input string.
-*/
-
 #include "libft.h"
 
-static char	**ft_protect(char const *s, char c)
+static char	**ft_allocate_wordcount(char const *s, char **arr, char c)
 {
-	char	**strings;
+	int		wordcount;
+	int		i;
 	int		len;
 
-	if (!s || !c)
+	i = 0;
+	wordcount = 0;
+	len = ft_strlen(s);
+	while (i < len && s[i] != '\0')
+	{
+		if (s[i] != c)
+		{
+			wordcount++;
+			while (s[i] != c && i < len && s[i] != '\0')
+				i++;
+		}
+		i++;
+	}
+	if (!(arr = (char**)malloc(sizeof(*arr) * (wordcount + 1))))
 		return (NULL);
-	len = ft_delim_count(s, c);
-	if (!(strings = (char**)malloc((len + 1) * sizeof(char*))))
-		return (NULL);
-	return (strings);
+	return (arr);
 }
 
-static char	**ft_allthework(char const *s, char **strings, int len, char c)
+static char	**ft_putwords(char const *s, char c, char **arr)
 {
-	int i;
-	int count;
-	int wordlen;
+	int		tmp;
+	int		i;
+	int		j;
+	int		len;
 
-	count = 0;
 	i = 0;
-	while (count < len)
+	j = 0;
+	len = ft_strlen(s);
+	while (i < len && s[i] != '\0')
 	{
-		wordlen = 0;
-		while (s[i] == c && s[i])
-			i++;
-		while (s[i] != c && s[i])
+		if (s[i] != c && i < len && s[i] != '\0')
 		{
-			wordlen++;
-			i++;
+			tmp = i;
+			while (s[i] != c && i < len && s[i] != '\0')
+				i++;
+			if (!(arr[j] = ft_strndup((&s[tmp]), (i - tmp))))
+				return (NULL);
+			j++;
 		}
-		strings[count++] = ft_strsub(&s[i - wordlen], 0, wordlen);
+		while (s[i] == c && i < len && s[i] != '\0')
+			i++;
 	}
-	strings[count] = 0;
-	return (strings);
+	arr[j] = 0;
+	return (arr);
 }
 
 char		**ft_strsplit(char const *s, char c)
 {
-	char	**strings;
-	int		len;
+	char	**arr;
 
-	strings = ft_protect(s, c);
-	if (strings == NULL)
+	if (!s)
 		return (NULL);
-	len = ft_delim_count(s, c);
-	strings = ft_allthework(s, strings, len, c);
-	return (strings);
+	arr = NULL;
+	if (!(arr = ft_allocate_wordcount(s, arr, c)))
+		return (NULL);
+	if (!(ft_putwords(s, c, arr)))
+		return (NULL);
+	return (arr);
 }

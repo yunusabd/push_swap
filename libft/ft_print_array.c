@@ -1,19 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_exit.c                                       :+:      :+:    :+:   */
+/*   ft_print_array.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/08 16:30:59 by aschukin          #+#    #+#             */
-/*   Updated: 2018/03/08 16:50:30 by aschukin         ###   ########.fr       */
+/*   Created: 2017/12/04 15:06:07 by yabdulha          #+#    #+#             */
+/*   Updated: 2017/12/04 21:21:01 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	error_exit(char *message, int exit_code)
+void	ft_print_array(const char **arr)
 {
-	ft_putstr(message);
-	exit(exit_code);
+	int i;
+	int j;
+
+	i = 0;
+	if (arr)
+	{
+		while (arr[i] != '\0')
+		{
+			j = 0;
+			while (arr[i][j] != '\0')
+			{
+				ft_putchar(arr[i][j]);
+				j++;
+			}
+			ft_putchar('\n');
+			i++;
+		}
+	}
 }

@@ -3,45 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/20 10:31:19 by aschukin          #+#    #+#             */
-/*   Updated: 2017/11/27 19:01:14 by aschukin         ###   ########.fr       */
+/*   Created: 2017/11/17 23:42:47 by yabdulha          #+#    #+#             */
+/*   Updated: 2017/12/01 16:18:23 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-** memmove is just like memcpy, with one important difference:
-** instead of copying directly from `src` to `dst`,
-** memmove makes a temporary array, copies `src` into
-** this temporary array, then copies the temporary array into `dst`.
-** This function does the following:
-** 1. Allocates a temporary array of size `n`
-** 2. Copies `src` into this temporary array
-** 3. Copies this temporary array into `dst`
-*/
-
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t n)
+void		*ft_memmove(void *dst, const void *src, size_t len)
 {
-	size_t i;
+	unsigned char			*dest;
+	const unsigned char		*source;
 
-	i = 0;
-	if (dst < src)
+	dest = (unsigned char*)dst;
+	source = (const unsigned char*)src;
+	if ((unsigned long)dst >= (unsigned long)src)
 	{
-		while (i < n)
+		while (len > 0)
 		{
-			((char *)dst)[i] = ((char *)src)[i];
-			i++;
+			len--;
+			dest[len] = source[len];
 		}
 	}
 	else
 	{
-		while (n--)
-		{
-			((char *)dst)[n] = ((char *)src)[n];
-		}
+		while (len--)
+			*dest++ = *source++;
 	}
 	return (dst);
 }

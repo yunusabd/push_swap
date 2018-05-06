@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_numlen_ll.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/23 16:53:29 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/01 17:38:22 by yabdulha         ###   ########.fr       */
+/*   Created: 2018/03/11 21:18:53 by yabdulha          #+#    #+#             */
+/*   Updated: 2018/03/11 21:19:01 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** Returns the length of a number, with an additional space for the '-' for
+** negative numbers.
+*/
+
 #include "libft.h"
 
-char	*ft_strtrim(char const *s)
+int		ft_numlen_ll(long long nb, int base)
 {
-	int		i;
-	int		j;
-	int		len;
+	int	len;
 
-	if (!s)
-		return (NULL);
-	len = ft_strlen(s) - 1;
-	i = 0;
-	while ((s[i] == ' ' || s[i] == '\n' || s[i] == '\t') && s[i] != '\0')
-		i++;
-	j = len;
-	while ((s[len] == ' ' || s[len] == '\n' || s[len] == '\t') && len >= i)
-		len--;
-	if (j == len && i == 0)
-		return (ft_strdup(s));
-	else
-		return (ft_strsub(s, i, (len - i + 1)));
+	if (base < 2)
+		return (0);
+	len = (nb < 0) ? 2 : 1;
+	while ((nb /= base))
+		len++;
+	return (len);
 }

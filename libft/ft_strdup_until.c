@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtolower.c                                    :+:      :+:    :+:   */
+/*   ft_strcpy_until.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/13 17:48:45 by aschukin          #+#    #+#             */
-/*   Updated: 2018/03/13 17:49:34 by aschukin         ###   ########.fr       */
+/*   Created: 2018/02/12 23:13:16 by yabdulha          #+#    #+#             */
+/*   Updated: 2018/03/15 18:46:06 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtolower(char *str)
+char		*ft_strdup_until(const char *s, const char *end)
 {
-	int	i;
+	size_t		i;
+	char		*new;
 
-	i = -1;
-	while (str[++i])
-		str[i] = ft_tolower(str[i]);
-	return (str);
+	i = 0;
+	while (s[i] && &s[i] != end)
+		i++;
+	new = ft_strnew(i);
+	i = 0;
+	while (s[i] && &s[i] != end)
+	{
+		new[i] = s[i];
+		i++;
+	}
+	return (new);
 }

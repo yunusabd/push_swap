@@ -6,14 +6,14 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 20:25:10 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/04/28 19:12:21 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/06 17:06:23 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <limits.h>
 
-int		ft_atoi(const char *str)
+long		ft_atoi_l(const char *str)
 {
 	int			i;
 	int			negative;
@@ -37,5 +37,5 @@ int		ft_atoi(const char *str)
 		return (0);
 	if (result < LONG_MIN)
 		return (0);
-	return ((int)result);
+	return ((long)result);
 }

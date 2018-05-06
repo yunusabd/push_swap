@@ -3,32 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/22 14:29:53 by aschukin          #+#    #+#             */
-/*   Updated: 2017/11/28 14:38:28 by aschukin         ###   ########.fr       */
+/*   Created: 2017/11/23 16:32:17 by yabdulha          #+#    #+#             */
+/*   Updated: 2017/12/05 20:56:38 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-** Allocates (with malloc(3)) and returns a “fresh” string ending
-** with ’\0’, result of the concatenation of s1 and s2.
-** If the allocation fails the function returns NULL.
-*/
 
 #include "libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char *fresh;
+	char	*new;
+	int		i;
+	int		len1;
+	int		len;
 
-	if (!s1 || !s2)
-		return (0);
-	if (!(fresh = ft_strnew(ft_strlen(s1) + ft_strlen(s2) + 1)))
+	if (!(s1 && s2))
 		return (NULL);
-	if (s1)
-		ft_strcpy(fresh, s1);
-	if (s2)
-		ft_strcat(fresh, s2);
-	return (fresh);
+	len1 = ft_strlen(s1);
+	len = len1 + ft_strlen(s2);
+	i = 0;
+	if (!(new = (char*)malloc(sizeof(*new) * len + 1)))
+		return (NULL);
+	while (i < len1)
+	{
+		new[i] = s1[i];
+		i++;
+	}
+	i = 0;
+	while (len1 <= len)
+	{
+		new[len1] = s2[i];
+		i++;
+		len1++;
+	}
+	return (new);
 }

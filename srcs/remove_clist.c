@@ -6,7 +6,7 @@
 /*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/05 17:35:17 by aschukin          #+#    #+#             */
-/*   Updated: 2018/05/06 01:29:51 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/06 16:18:22 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@ void	remove_head(t_clist **head)
 	tmp = *head;
 	if ((*head)->next == *head)
 	{
-		printf("this runs\n");
-		free(head);
-		head = NULL;
+		free(*head);
+		*head = NULL;
 	}
 	else
 	{

@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_delim_count.c                                   :+:      :+:    :+:   */
+/*   ft_strmap_p.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/27 19:15:59 by aschukin          #+#    #+#             */
-/*   Updated: 2017/11/27 19:18:39 by aschukin         ###   ########.fr       */
+/*   Created: 2018/04/28 17:54:19 by yabdulha          #+#    #+#             */
+/*   Updated: 2018/04/28 17:55:26 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_delim_count(char const *s, char delimiter)
-{
-	int count;
-	int i;
+/*
+** Same as ft_strmap, but overwrites the input string with the modified one.
+*/
 
-	count = 0;
+char	*ft_strmap_p(char *s, char (*f)(char))
+{
+	int		i;
+
 	i = 0;
-	while (s[i] == delimiter)
-		i++;
-	while (s[i])
+	if (!s || !f)
+		return (NULL);
+	while (s[i] != '\0')
 	{
-		if (s[i] != delimiter)
-		{
-			count++;
-			while (s[i] != delimiter && s[i] != '\0')
-				i++;
-			continue ;
-		}
+		s[i] = f(s[i]);
 		i++;
 	}
-	return (count);
+	return (s);
 }

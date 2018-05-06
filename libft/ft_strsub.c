@@ -3,38 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/22 11:55:15 by aschukin          #+#    #+#             */
-/*   Updated: 2017/11/25 17:59:12 by aschukin         ###   ########.fr       */
+/*   Created: 2017/11/23 16:26:38 by yabdulha          #+#    #+#             */
+/*   Updated: 2017/12/01 17:31:43 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-** Allocates (with malloc(3)) and returns a “fresh” substring
-** from the string given as argument. The substring begins at
-** index start and is of size len. If start and len aren’t refering
-** to a valid substring, the behavior is undefined. If the
-** allocation fails, the function returns NULL.
-*/
 
 #include "libft.h"
 
 char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	char	*fresh;
-	size_t	i;
+	char	*new;
+	int		i;
 
 	if (!s)
-		return (0);
-	if (!(fresh = (char *)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	if (!(new = (char*)malloc(sizeof(*new) * (len + 1))))
 		return (NULL);
 	i = 0;
-	while (s[i] && i < len)
+	while (len > 0)
 	{
-		fresh[i] = s[i + start];
+		new[i] = s[start];
 		i++;
+		start++;
+		len--;
 	}
-	fresh[i] = '\0';
-	return (fresh);
+	new[i] = '\0';
+	return (new);
 }

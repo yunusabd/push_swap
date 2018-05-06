@@ -3,111 +3,48 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aschukin <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/11/15 17:33:54 by aschukin          #+#    #+#              #
-#    Updated: 2018/05/04 17:58:10 by aschukin         ###   ########.fr        #
+#    Created: 2017/11/10 22:06:52 by yabdulha          #+#    #+#              #
+#    Updated: 2018/05/06 17:07:28 by yabdulha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
-HEAD = libft.h
+CC = gcc
+FLAGS = -Werror -Wextra -Wall
+FILES = ft_putchar ft_putstr ft_strcmp ft_strlen ft_strdup ft_strcpy ft_strcat \
+		ft_strncat ft_strlcat ft_strstr ft_strncmp ft_atoi ft_atoi_l \
+		ft_toupper ft_tolower ft_putnbr ft_isalpha ft_isdigit ft_isprint \
+		ft_itoa ft_memset ft_bzero ft_memcpy ft_memccpy ft_memmove ft_memchr \
+		ft_memcmp ft_strncpy ft_strchr ft_strrchr ft_strnstr ft_isalnum \
+		ft_isascii ft_memalloc ft_memdel ft_strnew ft_strdel ft_strclr \
+		ft_striter ft_striteri ft_strmap ft_strmapi ft_strequ ft_strnequ \
+		ft_strsub ft_strjoin ft_strtrim ft_strsplit ft_putendl ft_putchar_fd \
+		ft_putstr_fd ft_putendl_fd ft_putnbr_fd ft_lstnew ft_lstdelone \
+		ft_lstdel ft_lstadd ft_lstiter ft_lstmap ft_strndup ft_strrev \
+		ft_absolute ft_print_array ft_sqrt ft_strjoinfree ft_strdup_until \
+		ft_strpbrk ft_itoa_base ft_numlen ft_numlen_ll ft_numlen_max \
+		ft_numlen_umax ft_itoa_base_u ft_itoa_base_max ft_tolowercase \
+		ft_strmap_p
+FT_C =	$(patsubst %,%.c,$(FILES))
+OBJ  =	$(patsubst %,%.o,$(FILES))
 
-SRCS = ft_atoi.c \
-	   ft_atoi_long.c \
-	   ft_bzero.c \
-	   ft_count.c\
-	   ft_delim_count.c \
-	   error_exit.c \
-	   ft_isalnum.c \
-	   ft_isalpha.c \
-	   ft_isascii.c \
-	   ft_isdigit.c \
-	   ft_isprint.c \
-	   ft_itoa.c \
-	   ft_itoa_base.c \
-	   ft_lstadd.c \
-	   ft_lstcount.c \
-	   ft_lstdel.c \
-	   ft_lstdelone.c \
-	   ft_lstiter.c \
-	   ft_lstmap.c \
-	   ft_lstnew.c \
-	   ft_memalloc.c \
-	   ft_memccpy.c \
-	   ft_memchr.c \
-	   ft_memcmp.c \
-	   ft_memcpy.c \
-	   ft_memdel.c \
-	   ft_memmove.c \
-	   ft_memset.c \
-	   ft_putchar.c \
-	   ft_putchar_fd.c \
-	   ft_putwchar.c \
-	   ft_putendl.c \
-	   ft_putendl_fd.c \
-	   ft_putnbr.c \
-	   ft_putnbr_fd.c \
-	   ft_putstr.c \
-	   ft_putstr_fd.c \
-	   ft_putnstr.c \
-	   ft_putwstr.c \
-	   ft_strcapitalize.c \
-	   ft_strcat.c \
-	   ft_strlcat.c \
-	   ft_strchr.c \
-	   ft_strclr.c \
-	   ft_strcmp.c \
-	   ft_strcpy.c \
-	   ft_strdel.c \
-	   ft_strdup.c \
-	   ft_strequ.c \
-	   ft_striter.c \
-	   ft_striteri.c \
-	   ft_strjoin.c \
-	   ft_strjoin_free.c \
-	   ft_strlen.c \
-	   ft_strwlen.c \
-	   ft_strmap.c \
-	   ft_strmapi.c \
-	   ft_strncat.c \
-	   ft_strncmp.c \
-	   ft_strncpy.c \
-	   ft_strnequ.c \
-	   ft_strnew.c \
-	   ft_strnstr.c \
-	   ft_strrchr.c \
-	   ft_strrev.c \
-	   ft_strrotate.c \
-	   ft_strsplit.c \
-	   ft_strstr.c \
-	   ft_strsub.c \
-	   ft_strtrim.c \
-	   ft_strtolower.c \
-	   ft_strtoupper.c \
-	   ft_strunicode.c \
-	   ft_tolower.c \
-	   ft_toupper.c \
-	   ft_unicode.c \
-	   ft_utoa_base.c \
+.PHONY: all clean fclean re
 
-FLAGS = -Wall -Werror -Wextra -g
+all: $(NAME)
 
-OBJ = $(SRCS:.c=.o)
+$(OBJ): $(FT_C)
+	$(CC) $(FLAGS) -c $(FT_C)
 
-all : $(NAME)
+$(NAME): $(FT_C) $(OBJ)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
 
-$(NAME):
-		@gcc -c -I $(HEAD) $(FLAGS) $(SRCS)
-		@ar rc $(NAME) $(OBJ)
-		@ranlib libft.a
+clean:
+	@/bin/rm -f $(OBJ)
 
-clean :
-	@rm -rf $(OBJ)
+fclean: clean
+	@/bin/rm -f $(NAME)
 
-fclean : clean
-	@rm -rf $(NAME)
-
-re : fclean all
-
-.PHONY : all clean fclean re
+re: fclean all

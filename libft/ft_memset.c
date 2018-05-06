@@ -3,32 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/17 15:40:53 by aschukin          #+#    #+#             */
-/*   Updated: 2017/11/28 10:46:52 by aschukin         ###   ########.fr       */
+/*   Created: 2017/11/20 19:04:52 by yabdulha          #+#    #+#             */
+/*   Updated: 2017/11/20 21:03:57 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-** copies len bytes of value of c (converted to an unsigned char)
-** to the string b.
-** Returns: function returns its first argument
-*/
 
 #include "libft.h"
 
 void	*ft_memset(void *b, int c, size_t len)
 {
-	char	*p;
-	size_t	i;
+	unsigned char	*s;
+	int				i;
 
-	p = (char*)b;
 	i = 0;
-	while (i < len)
+	s = (unsigned char *)b;
+	while (len > 0)
 	{
-		p[i] = (char)c;
+		s[i] = (unsigned char)c;
 		i++;
+		len--;
 	}
 	return (b);
 }

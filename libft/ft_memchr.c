@@ -3,39 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/20 10:34:49 by aschukin          #+#    #+#             */
-/*   Updated: 2017/11/23 10:43:30 by aschukin         ###   ########.fr       */
+/*   Created: 2017/11/20 23:23:21 by yabdulha          #+#    #+#             */
+/*   Updated: 2017/11/29 14:16:02 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-** The memchr() function scans the intial n bytes of memory pointed to by s
-** for the first instance of c. Returns a pointer to the located character,
-** or a null pointer if the character does not occur in the object.
-*/
 
 #include "libft.h"
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	size_t	i;
-	char	*p;
+	char			ch;
+	char			*str;
+	size_t			i;
 
+	str = (char *)s;
+	ch = (char)c;
 	i = 0;
-	p = (char*)s;
 	while (i < n)
 	{
-		if (*p != (char)c)
-		{
-			p++;
+		if ((char)str[i] != ch)
 			i++;
-		}
 		else
-		{
-			return (p);
-		}
+			return ((void*)str + i);
 	}
-	return (0);
+	return (NULL);
 }

@@ -1,7 +1,8 @@
 NAME = libftprintf.a
 
 SRCS_PATH = srcs
-SRC_FILES = main.c create_clist.c error_parser.c moves.c remove_clist.c
+SRC_FILES = main.c create_clist.c error_parser.c remove_clist.c swap.c \
+			rotate.c reverse_rotate.c push.c error_handler.c print_stacks.c
 SRCS = $(addprefix $(SRCS_PATH)/,$(SRC_FILES))
 
 OBJS_PATH = objects
@@ -23,10 +24,14 @@ LIB = $(addprefix $(LIBFT_PATH)/,libft.a)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): libftcomp $(OBJS) $(LIB)
 	@echo "\033[31;5;mCompiling push_swap...\033[0m"
 	gcc $(SRCS) $(CFLAGS) -I$(INCLUDES_PATH) $(LIB)
 	@echo "\033[32;3m\nCompiling Done !\033[0m"
+
+libftcomp:
+	@echo "\033[31;5;mCompiling libft...\033[0m"
+	@make all -C libft/
 
 $(OBJS): $(OBJS_PATH) $(SRCS) $(INCLUDES_PATH)
 	@echo "compiling source"

@@ -3,23 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/15 18:33:32 by aschukin          #+#    #+#             */
-/*   Updated: 2018/03/10 18:15:01 by aschukin         ###   ########.fr       */
+/*   Created: 2017/11/22 19:43:33 by yabdulha          #+#    #+#             */
+/*   Updated: 2018/04/25 15:25:20 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*
-** Locates 1st occurrence of c in *s
-*/
-
 char	*ft_strchr(const char *s, int c)
 {
-	while (*s != (char)c)
-		if (!*s++)
-			return (0);
-	return (char *)s;
+	int		i;
+
+	if (!s)
+		return (NULL);
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == (char)c)
+			return ((char*)s + i);
+		i++;
+	}
+	if (s[i] == (char)c)
+		return ((char*)s + i);
+	return (NULL);
 }

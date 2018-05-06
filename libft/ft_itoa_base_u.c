@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_itoa_base_u.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/23 16:53:29 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/01 17:38:22 by yabdulha         ###   ########.fr       */
+/*   Created: 2018/03/16 20:35:42 by yabdulha          #+#    #+#             */
+/*   Updated: 2018/04/28 17:51:47 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s)
+char	*ft_itoa_base_u(unsigned long long value, int base)
 {
-	int		i;
-	int		j;
+	char	*buff;
+	char	*digits;
 	int		len;
+	int		tmp;
 
-	if (!s)
+	if (base < 2 || base > 16)
 		return (NULL);
-	len = ft_strlen(s) - 1;
-	i = 0;
-	while ((s[i] == ' ' || s[i] == '\n' || s[i] == '\t') && s[i] != '\0')
-		i++;
-	j = len;
-	while ((s[len] == ' ' || s[len] == '\n' || s[len] == '\t') && len >= i)
-		len--;
-	if (j == len && i == 0)
-		return (ft_strdup(s));
-	else
-		return (ft_strsub(s, i, (len - i + 1)));
+	len = ft_numlen_umax(value, base);
+	tmp = value % base;
+	tmp *= (tmp < 0) ? -1 : 1;
+	value /= base;
+	buff = ft_strnew(len);
+	digits = "0123456789ABCDEF";
+	buff[len - 1] = digits[tmp];
+	while (--len && value)
+	{
+		buff[len - 1] = digits[value % base];
+		value /= base;
+	}
+	return (buff);
 }

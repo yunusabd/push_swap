@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnstr.c                                       :+:      :+:    :+:   */
+/*   ft_sqrt.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/20 15:46:07 by aschukin          #+#    #+#             */
-/*   Updated: 2018/03/20 15:46:54 by aschukin         ###   ########.fr       */
+/*   Created: 2017/12/04 15:03:12 by yabdulha          #+#    #+#             */
+/*   Updated: 2017/12/04 16:08:38 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnstr(char const *s)
+int	ft_sqrt(const int nb)
 {
-	while (*s != '\0')
+	int result;
+
+	if (!(nb % 2 >= 0))
+		return (0);
+	result = 1;
+	while (result <= nb / result)
 	{
-		ft_putchar(*s);
-		s++;
+		if (result == nb / result && nb % result == 0)
+			return (result);
+		result++;
 	}
-	ft_putchar(*s);
+	return (0);
 }

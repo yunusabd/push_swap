@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/05 22:04:32 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/05 22:08:08 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/06 21:53:20 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			check_duplicate(t_clist *head)
 ** Check if the input string only contains '+', '-', ' ' or digits.
 */
 
-int			check_content(const char *str)
+static int	check_content(const char *str, t_frame *stacks)
 {
 	int		i;
 
@@ -62,7 +62,7 @@ int			check_content(const char *str)
 				(i == 0 || str[i - 1] == ' '))
 			i++;
 		else
-			error_exit("Error\n", 1);
+			error_exit(stacks);
 	}
 	return (1);
 }
@@ -71,7 +71,7 @@ int			check_content(const char *str)
 ** If the number has more than 11 digits, it can't fit into an int -> error.
 */
 
-static int	check_numlen(const char *str)
+static int	check_numlen(const char *str, t_frame *stacks)
 {
 	int		i;
 
@@ -81,12 +81,12 @@ static int	check_numlen(const char *str)
 	{
 		i++;
 		if (i > 11)
-			error_exit("Error\n", 1);
+			error_exit(stacks);
 	}
 	return (i);
 }
 
-t_clist		*fill_stack(const char *str, t_clist *a)
+void		fill_stack(const char *str, t_frame *stacks)
 {
 	long	tmp;
 	int		i;
@@ -97,19 +97,18 @@ t_clist		*fill_stack(const char *str, t_clist *a)
 	{
 		while (str[i] != '\0' && str[i] == ' ')
 			i++;
-		j = check_numlen(str + i);
+		j = check_numlen(str + i, stacks);
 		if (str[i] == '\0')
 			break ;
-		tmp = ft_atoi_long(str + i);
+		tmp = ft_atoi_l(str + i);
 		if (tmp > 2147483647 || tmp < -2147483648)
-			error_exit("Error\n", 1);
-		if (!a)
-			a = create_clist(tmp);
+			error_exit(stacks);
+		if (!stacks->a)
+			stacks->a = create_clist(tmp, stacks);
 		else
-			add_to_tail(a, tmp);
+			add_to_tail(stacks->a, tmp, stacks);
 		i += j;
 	}
-	return (a);
 }
 
 void		parser(char **av, t_frame *stacks)
@@ -120,8 +119,8 @@ void		parser(char **av, t_frame *stacks)
 	i = 1;
 	while (av[i])
 	{
-		check_content(av[i]);
-		stacks->a = fill_stack(av[i], stacks->a);
+		check_content(av[i], stacks);
+		fill_stack(av[i], stacks);
 		i++;
 	}
 }

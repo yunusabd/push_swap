@@ -1,32 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/22 20:45:44 by yabdulha          #+#    #+#             */
-/*   Updated: 2017/12/01 17:18:04 by yabdulha         ###   ########.fr       */
+/*   Created: 2017/11/23 16:32:17 by yabdulha          #+#    #+#             */
+/*   Updated: 2018/05/01 15:27:26 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+static void		free_str(char *s1, char *s2, int del)
+{
+	if (del == 1)
+		free(s1);
+	else if (del == 2)
+		free(s2);
+	else
+	{
+		free(s1);
+		free(s2);
+	}
+}
+
+char			*ft_strjoinfree(char *s1, char *s2, int del)
 {
 	char	*new;
 	int		i;
+	int		len1;
+	int		len;
 
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	len1 = ft_strlen(s1);
+	len = len1 + ft_strlen(s2);
+	if (!(new = ft_strnew(len)))
+		return (NULL);
 	i = 0;
-	if (!s || !f)
-		return (NULL);
-	if (!(new = (char*)malloc(sizeof(*new) * (ft_strlen(s) + 1))))
-		return (NULL);
-	while (s[i] != '\0')
+	while (i < len)
 	{
-		new[i] = f(i, s[i]);
+		if (i < len1)
+			new[i] = s1[i];
+		if (i < (len - len1))
+			new[i + len1] = s2[i];
 		i++;
 	}
-	new[i] = '\0';
+	free_str(s1, s2, del);
 	return (new);
 }

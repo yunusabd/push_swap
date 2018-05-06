@@ -3,38 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/14 16:35:33 by aschukin          #+#    #+#             */
-/*   Updated: 2017/11/27 19:21:51 by aschukin         ###   ########.fr       */
+/*   Created: 2017/11/15 13:58:03 by yabdulha          #+#    #+#             */
+/*   Updated: 2017/11/29 17:02:47 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-** Locates the first occurrence of the null-terminated string needle
-** in the string haystack.
-*/
 
 #include "libft.h"
 
 char	*ft_strstr(const char *haystack, const char *needle)
 {
-	int		i;
-	int		j;
-	char	*hay;
+	int	i;
+	int	j;
 
+	if (ft_strlen(needle) == 0)
+		return ((char*)haystack);
 	i = 0;
-	hay = (char*)haystack;
-	if (!*needle)
-		return (hay);
-	while (hay[i] != '\0')
+	while (haystack[i] != '\0')
 	{
-		j = 0;
-		while (hay[i + j] == needle[j])
+		if (haystack[i] == needle[0])
 		{
-			j++;
-			if (needle[j] == '\0')
-				return (&hay[i]);
+			j = 0;
+			while (haystack[i + j] == needle[j])
+			{
+				j++;
+				if (needle[j] == '\0')
+					return ((char*)haystack + i);
+			}
 		}
 		i++;
 	}

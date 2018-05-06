@@ -3,61 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/20 11:08:54 by aschukin          #+#    #+#             */
-/*   Updated: 2018/04/09 16:02:16 by aschukin         ###   ########.fr       */
+/*   Created: 2017/11/28 16:30:59 by yabdulha          #+#    #+#             */
+/*   Updated: 2017/12/03 22:28:12 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-** Itoa converts an integer into a string.
-** int num is the integer we want to convert.
-** char *str is where we'll store it.
-** line 47: i is initialized as last character index of str
-*/
-
 #include "libft.h"
 
-static char	*negative_case(intmax_t num, char *str, int i, int count)
+char			*ft_itoa(int n)
 {
-	uintmax_t neg;
+	char	*str;
+	int		i;
+	int		neg;
 
-	str[0] = '-';
-	neg = -num;
-	while (neg > 0)
-	{
-		str[i] = '0' + (neg % 10);
-		neg = neg / 10;
-		i--;
-	}
-	str[count] = '\0';
-	return (str);
-}
-
-char		*ft_itoa(intmax_t num)
-{
-	char		*str;
-	int			count;
-	int			i;
-
-	count = ft_count(num);
-	if (!(str = (char *)malloc((count + 1) * sizeof(char))))
+	i = 0;
+	if (!(str = (char*)malloc(sizeof(*str) * 12)))
 		return (NULL);
-	i = count - 1;
-	if (num == 0)
-		str[0] = '0';
-	if (num < 0)
+	neg = (n < 0) ? 1 : 0;
+	while (n)
 	{
-		return (negative_case(num, str, i, count));
+		str[i] = ft_absolute(n % 10) + 48;
+		n /= 10;
+		i++;
 	}
-	else
-		while (num > 0)
-		{
-			str[i] = '0' + (num % 10);
-			num = num / 10;
-			i--;
-		}
-	str[count] = '\0';
-	return (str);
+	if (neg)
+		str[i] = '-';
+	if (!i)
+		str[i] = 48;
+	if (neg || !i)
+		i++;
+	str[i] = '\0';
+	return (ft_strrev(str));
 }

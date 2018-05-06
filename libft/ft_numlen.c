@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstcount.c                                      :+:      :+:    :+:   */
+/*   ft_numlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/28 16:22:24 by aschukin          #+#    #+#             */
-/*   Updated: 2017/11/28 18:14:42 by aschukin         ###   ########.fr       */
+/*   Created: 2018/03/05 01:45:16 by yabdulha          #+#    #+#             */
+/*   Updated: 2018/03/05 02:13:52 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** Returns the length of a number, with an additional space for the '-' for
+** negative numbers.
+*/
+
 #include "libft.h"
 
-int	ft_lstcount(t_list *lst)
+int		ft_numlen(int nb, int base)
 {
-	int		i;
-	t_list	*temp;
+	int	len;
 
-	i = 0;
-	while (lst != NULL)
-	{
-		i++;
-		temp = temp->next;
-	}
-	return (i);
+	if (base < 2)
+		return (0);
+	len = (nb < 0) ? 2 : 1;
+	while ((nb /= base))
+		len++;
+	return (len);
 }
