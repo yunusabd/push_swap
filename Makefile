@@ -1,8 +1,9 @@
-NAME = libftprintf.a
+NAME = push_swap
 
 SRCS_PATH = srcs
 SRC_FILES = main.c create_clist.c error_parser.c remove_clist.c swap.c \
-			rotate.c reverse_rotate.c push.c error_handler.c print_stacks.c
+			rotate.c reverse_rotate.c push.c error_handler.c print_stacks.c \
+			get_input.c get_next_line.c jump_table.c check_sorted.c
 SRCS = $(addprefix $(SRCS_PATH)/,$(SRC_FILES))
 
 OBJS_PATH = objects
@@ -11,7 +12,7 @@ OBJS = $(addprefix $(OBJS_PATH)/,$(OBJS_NAME))
 
 INCLUDES_PATH = includes
 
-INCLUDES_NAME = push_swap.h
+INCLUDES_NAME = push_swap.h get_next_line.h libft.h
 INCLUDES = $(addprefix $(INCLUDES_PATH)/,$(INCLUDE_NAME))
 
 CFLAGS = -Wall -Wextra -Werror
@@ -26,7 +27,7 @@ all: $(NAME)
 
 $(NAME): libftcomp $(OBJS) $(LIB)
 	@echo "\033[31;5;mCompiling push_swap...\033[0m"
-	gcc $(SRCS) $(CFLAGS) -I$(INCLUDES_PATH) $(LIB)
+	gcc $(SRCS) $(CFLAGS) -I$(INCLUDES_PATH) $(LIB) -o $(NAME)
 	@echo "\033[32;3m\nCompiling Done !\033[0m"
 
 libftcomp:

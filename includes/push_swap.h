@@ -6,7 +6,7 @@
 /*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/14 16:55:38 by aschukin          #+#    #+#             */
-/*   Updated: 2018/05/06 21:54:39 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/07 01:03:29 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PUSH_SWAP_H
 
 #include "../libft/libft.h"
+#include "get_next_line.h"
 #include <stdlib.h>
 #include <limits.h>
 #include <stdio.h>
@@ -39,6 +40,9 @@ void		add_to_top(t_clist **head, int data, t_frame *stacks);
 void		add_to_tail(t_clist *head, int data, t_frame *stacks);
 void		remove_head(t_clist **head);
 void		print_stacks(t_frame *stacks);
+void		get_input(t_frame *stacks);
+int			is_sorted(t_frame *stacks);
+void		jt(uint8_t jump_index, t_frame *stacks);
 
 void		error_exit(t_frame *stacks);
 void		free_stacks(t_frame *stacks);
