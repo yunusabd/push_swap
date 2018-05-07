@@ -6,7 +6,7 @@
 /*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 17:08:37 by aschukin          #+#    #+#             */
-/*   Updated: 2018/05/07 01:12:52 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/07 12:19:19 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ int	main(int ac, char **av)
 	printf((check_duplicate(stacks->a) == 1) ? "\nno duplicates\n" : "\nduplicates found\n");
 	printf((is_sorted(stacks) == 1) ? "sorted\n" : "not sorted\n");
 	free_stacks(stacks);
+	while(1);
 	return (0);
 }

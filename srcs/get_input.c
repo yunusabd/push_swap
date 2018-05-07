@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 23:26:09 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/07 01:21:34 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/07 12:18:09 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void		get_input(t_frame *stacks)
 			free(line);
 			error_exit(stacks);
 		}
+		free(line);
 	}
 	free(line);
 }

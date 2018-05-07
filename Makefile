@@ -7,16 +7,17 @@ SRC_FILES1 = checker.c create_clist.c error_parser.c remove_clist.c swap.c \
 			get_input.c get_next_line.c jump_table.c check_sorted.c
 SRC_FILES2 = push_swap.c create_clist.c error_parser.c remove_clist.c swap.c \
 			rotate.c reverse_rotate.c push.c error_handler.c print_stacks.c \
-			jump_table.c check_sorted.c
+			jump_table.c check_sorted.c solver.c
 
 SRCS1 = $(addprefix $(SRCS_PATH)/,$(SRC_FILES1))
 SRCS2 = $(addprefix $(SRCS_PATH)/,$(SRC_FILES2))
 
 OBJS_PATH = objects
+OBJS_PATH2 = objects2
 OBJS_NAME1 = $(SRC_FILES1:.c=.o)
 OBJS_NAME2 = $(SRC_FILES2:.c=.o)
 OBJS1 = $(addprefix $(OBJS_PATH)/,$(OBJS_NAME1))
-OBJS2 = $(addprefix $(OBJS_PATH)/,$(OBJS_NAME2))
+OBJS2 = $(addprefix $(OBJS_PATH2)/,$(OBJS_NAME2))
 
 INCLUDES_PATH = includes
 
@@ -35,7 +36,7 @@ ch: $(NAME1)
 
 pw: $(NAME2)
 
-all: $(NAME1) $(NAME2)
+all: ch pw
 
 $(NAME1): libftcomp $(OBJS1) $(LIB)
 	@echo "\033[31;5;mCompiling checker...\033[0m"
@@ -56,13 +57,16 @@ $(OBJS1): $(OBJS_PATH) $(SRCS1) $(INCLUDES_PATH)
 	gcc -c $(SRCS1) $(CFLAGS) -I$(INCLUDES_PATH) -I$(LIBFT_PATH)
 	@mv $(OBJS_NAME1) $(OBJS_PATH)
 
-$(OBJS2): $(OBJS_PATH) $(SRCS2) $(INCLUDES_PATH)
+$(OBJS2): $(OBJS_PATH2) $(SRCS2) $(INCLUDES_PATH)
 	@echo "compiling source"
 	gcc -c $(SRCS2) $(CFLAGS) -I$(INCLUDES_PATH) -I$(LIBFT_PATH)
-	@mv $(OBJS_NAME2) $(OBJS_PATH)
+	@mv $(OBJS_NAME2) $(OBJS_PATH2)
 
 $(OBJS_PATH):
 	@mkdir $(OBJS_PATH) 2> /dev/null || true
+
+$(OBJS_PATH2):
+	@mkdir $(OBJS_PATH2) 2> /dev/null || true
 
 $(INCLUDES_PATH):
 	@mkdir $(INCLUDES_PATH) 2> /dev/null || true
@@ -72,7 +76,7 @@ clean:
 	@echo "\033[32;5mCleaning..."
 	@make clean -C libft/
 	@rm -f $(OBJS1) $(OBJS2)
-	@rmdir $(OBJS_PATH) 2> /dev/null || true
+	@rmdir $(OBJS_PATH) $(OBJS_PATH2) 2> /dev/null || true
 	@echo "\033[32;3mCleaning Done !\n\033[0m"
 
 fclean: clean
