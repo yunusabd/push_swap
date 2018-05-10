@@ -6,11 +6,14 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 16:53:10 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/07 22:42:10 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/10 20:46:49 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void			qs_b(t_frame *stacks, int len);
+void			quicksort(t_frame *stacks, int len);
 
 int				count_list(t_clist *stack)
 {
@@ -60,8 +63,9 @@ static int		*list_to_array(t_clist *stack)
 	i = 0;
 	while (tmp != stack->prev)
 	{
-		arr[i++] = tmp->data;
+		arr[i] = tmp->data;
 		tmp = tmp->next;
+		i++;
 	}
 	arr[i] = tmp->data;
 	return (arr);
@@ -70,64 +74,166 @@ static int		*list_to_array(t_clist *stack)
 int				get_median(t_clist *stack, int len)
 {
 	int	*arr;
+	int	ret;
+	int	i;
 
 	arr = list_to_array(stack);
 	sort_array(arr, len);
-	return (arr[len / 2]);
+	i = 0;
+	while (arr[i])
+		i++;
+	ret = arr[len / 2];
+	free(arr);
+	return (ret);
 }
 
-void			quicksort(t_frame *stacks, int len, int i)
+void			upper(t_frame *stacks, int len)
 {
-	int		top_half_len;
+	int		i;
 	int		median;
+	int		top;
 
-	printf("depth: %d, len: %d\n", i, len);
-	i++;
-	if (len == 1)
+
+	if (len < 2)
 		return ;
-	median = get_median(stacks->a, len);
-	top_half_len = 0;
+	top = 0;
+	printf("len: %d\n", len);
 	i = 0;
+	
+	median = get_median(stacks->a, len);
+	printf("median %d\n", median);
 	while (i < len)
 	{
-		if (stacks->a->data >= median)
+		printf("stacks->a->data: %d ", stacks->a->data);
+		if (stacks->a->data > median)
 		{
+			printf("push to b");
 			pb(stacks);
-			top_half_len++;
+			top++;
 		}
 		else
+		{
+			printf("rotate a");
 			ra(stacks);
+		}
+		printf("\n");
 		i++;
 	}
+	printf("after pushing to b\n");
+	display_printf(stacks, 0, 0);
+	while (stacks->b)
+		qs_b(stacks, top);
 	i = 0;
-	while (i < len - top_half_len)
+	printf("\n-------------\n");
+	display_printf(stacks, 0, 0);
+	printf("\n-------------\n");
+	while (i < top)
 	{
-		rra(stacks);
-		i++;
-	}
-	i = 0;
-	while (i < top_half_len)
-	{
-		pa(stacks);
-		i++;
-	}
-	printf("\n-------1------\n");
-	print_stacks(stacks);
-	printf("\n-------2------\n");
-	quicksort(stacks, top_half_len, i);
-	i = 0;
-	while (i < top_half_len)
-	{
-		printf("\nrra\n");
 		ra(stacks);
 		i++;
 	}
-	print_stacks(stacks);
-	quicksort(stacks, len - top_half_len, i);
+	display_printf(stacks, 0, 0);
+	return ;
+	printf("median %d, top: %d\n", median, top);
+	return ;
+
+}
+
+void			qs_b(t_frame *stacks, int len)
+{
+	int	i;
+	int	top;
+	int	median;
+
+	if (len == 1)
+	{
+		pa(stacks);
+		return ;
+	}
+	i = 0;
+	top = 0;
+	median = get_median(stacks->b, len);
+	while (i < len)
+	{
+		printf("stacks->b->data: %d ", stacks->b->data);
+		if (stacks->b->data >= median)
+		{
+			printf("push to a");
+			pa(stacks);
+			top++;
+		}
+		else
+		{
+			printf("rotate b");
+			rb(stacks);
+		}
+			printf("\n");
+		i++;
+	}
+	if (stacks->b)
+		qs_b(stacks, len - top);
+	return ;
+}
+
+void			quicksort(t_frame *stacks, int len)
+{
+	int		i;
+	int		median;
+	int		top;
+
+
+	if (len < 2)
+		return ;
+	top = 0;
+	printf("len: %d\n", len);
+	i = 0;
+	
+	median = get_median(stacks->a, len);
+	printf("median %d\n", median);
+	while (i < len)
+	{
+		printf("stacks->a->data: %d ", stacks->a->data);
+		if (stacks->a->data <= median)
+		{
+			printf("push to b");
+			pb(stacks);
+			top++;
+		}
+		else
+		{
+			printf("rotate a");
+			ra(stacks);
+		}
+		printf("\n");
+		i++;
+	}
+	printf("after pushing to b\n");
+	display_printf(stacks, 0, 0);
+	while (stacks->b)
+		qs_b(stacks, top);
+	i = 0;
+	printf("\n-------------\n");
+	display_printf(stacks, 0, 0);
+	printf("\n-------------\n");
+	while (i < top)
+	{
+		ra(stacks);
+		i++;
+	}
+	display_printf(stacks, 0, 0);
+	upper(stacks, len - top);
+	return ;
+	printf("median %d, top: %d\n", median, top);
+	return ;
 }
 
 int				solver(t_frame *stacks)
 {
-	quicksort(stacks, count_list(stacks->a), 0);
+	int len;
+
+	len = count_list(stacks->a);
+	printf("Right order: %d\n", right_order(stacks));
+//	while (!is_sorted(stacks))
+//		quicksort(stacks, len);
 	return (1);
 }

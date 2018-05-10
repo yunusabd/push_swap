@@ -6,7 +6,7 @@
 /*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/14 16:55:38 by aschukin          #+#    #+#             */
-/*   Updated: 2018/05/07 17:14:38 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/10 20:46:18 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ void		print_stacks(t_frame *stacks);
 void		get_input(t_frame *stacks);
 int			is_sorted(t_frame *stacks);
 void		jt(uint8_t jump_index, t_frame *stacks);
+int			count_list(t_clist *stack);
 
+void		display_printf(t_frame *frame, int a_flag, int b_flag);
+int			right_order(t_frame *stacks);
 int			solver(t_frame *stacks);
 
 void		error_exit(t_frame *stacks);

@@ -38,7 +38,7 @@ pw: $(NAME2)
 
 all: ch pw
 
-$(NAME1): libftcomp $(OBJS1) $(LIB)
+$(NAME1): libftcomp $(OBJS1) $(LIB) $(SRCS1)
 	@echo "\033[31;5;mCompiling checker...\033[0m"
 	gcc $(SRCS1) $(CFLAGS) -I$(INCLUDES_PATH) $(LIB) -o $(NAME1)
 	@echo "\033[32;3m\nCompiling Done !\033[0m"
