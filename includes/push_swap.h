@@ -6,7 +6,7 @@
 /*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/14 16:55:38 by aschukin          #+#    #+#             */
-/*   Updated: 2018/05/10 20:46:18 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/11 17:47:08 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,17 @@ typedef struct	s_frame
 	t_clist	*b;
 }				t_frame;
 
+typedef struct	s_rotate
+{
+	char	*operation;
+	int		len;
+	int		rotate;
+	int		max;
+	int		min;
+	t_clist	*minptr;
+	t_clist	*maxptr;
+}				t_rotate;
+
 t_clist*	create_clist(int data, t_frame *stacks);
 void		add_before(t_clist *element, int data, t_frame *stacks);
 void		add_after(t_clist *element, int data, t_frame *stacks);
@@ -48,6 +59,7 @@ int			count_list(t_clist *stack);
 void		display_printf(t_frame *frame, int a_flag, int b_flag);
 int			right_order(t_frame *stacks);
 int			solver(t_frame *stacks);
+int			get_min(t_clist *stack);
 
 void		error_exit(t_frame *stacks);
 void		free_stacks(t_frame *stacks);

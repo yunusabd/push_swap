@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 16:53:10 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/10 20:46:49 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/11 17:57:23 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,91 +87,153 @@ int				get_median(t_clist *stack, int len)
 	return (ret);
 }
 
-void			upper(t_frame *stacks, int len)
+int				get_min(t_clist *stack)
 {
-	int		i;
-	int		median;
-	int		top;
+	int		ret;
+	t_clist	*tmp;
 
-
-	if (len < 2)
-		return ;
-	top = 0;
-	printf("len: %d\n", len);
-	i = 0;
-	
-	median = get_median(stacks->a, len);
-	printf("median %d\n", median);
-	while (i < len)
+	ret = stack->data;
+	tmp = stack->next;
+	while (tmp != stack)
 	{
-		printf("stacks->a->data: %d ", stacks->a->data);
-		if (stacks->a->data > median)
-		{
-			printf("push to b");
-			pb(stacks);
-			top++;
-		}
-		else
-		{
-			printf("rotate a");
-			ra(stacks);
-		}
-		printf("\n");
-		i++;
+		if (ret > tmp->data)
+			ret = tmp->data;
+		tmp = tmp->next;
 	}
-	printf("after pushing to b\n");
-	display_printf(stacks, 0, 0);
-	while (stacks->b)
-		qs_b(stacks, top);
-	i = 0;
-	printf("\n-------------\n");
-	display_printf(stacks, 0, 0);
-	printf("\n-------------\n");
-	while (i < top)
-	{
-		ra(stacks);
-		i++;
-	}
-	display_printf(stacks, 0, 0);
-	return ;
-	printf("median %d, top: %d\n", median, top);
-	return ;
-
+	return (ret);
 }
+
+int				get_max(t_clist *stack)
+{
+	int		ret;
+	t_clist	*tmp;
+
+	ret = stack->data;
+	tmp = stack->next;
+	while (tmp != stack)
+	{
+		if (ret < tmp->data)
+			ret = tmp->data;
+		tmp = tmp->next;
+	}
+	return (ret);
+}
+
+t_clist			*get_max_ptr(t_clist *stack)
+{
+	t_clist	*ret;
+	t_clist	*tmp;
+
+	ret = stack;
+	tmp = stack->next;
+	while (tmp != stack)
+	{
+		if (ret->data < tmp->data)
+			ret = tmp;
+		tmp = tmp->next;
+	}
+	return (ret);
+}
+
+t_clist			*get_min_ptr(t_clist *stack)
+{
+	t_clist	*ret;
+	t_clist	*tmp;
+
+	ret = stack;
+	tmp = stack->next;
+	while (tmp != stack)
+	{
+		if (ret->data < tmp->data)
+			ret = tmp;
+		tmp = tmp->next;
+	}
+	return (ret);
+}
+
+/*
+** Check min, count distance to head to rotate and reverse rotate.
+** Same for max. Execute smaller value.
+*/
+/*
+t_rotate		*smart_rotate(t_clist *stack)
+{
+	int			minpos;
+	int			maxpos;
+	t_rotate	*info;
+	t_clist		*tmp;
+
+	if (!stack)
+		return (NULL);
+	info = (t_rotate*)malloc(sizeof(*info));
+	counter = 0;
+	info->minptr = get_min_ptr(stack);
+	info->maxptr = get_max_ptr(stack);
+	tmp = stack->next;
+	while (tmp != stack)
+	{
+		if (tmp == minptr)
+			minpos = counter;
+		else if (tmp == maxptr)
+			maxpos = counter;
+		tmp = tmp->next;
+		counter++;
+	}
+	len = count_list(stack);
+	if (minpos < maxpos)
+	{
+		if (len - minpos < len - maxpos)
+	}
+
+	return (info);
+}
+*/
 
 void			qs_b(t_frame *stacks, int len)
 {
 	int	i;
 	int	top;
 	int	median;
+	int	max;
 
-	if (len == 1)
+	if (!(stacks->b) || len == 1)
 	{
 		pa(stacks);
 		return ;
 	}
-	i = 0;
 	top = 0;
+	max = 0;
 	median = get_median(stacks->b, len);
-	while (i < len)
+	while (stacks->b)
 	{
-		printf("stacks->b->data: %d ", stacks->b->data);
-		if (stacks->b->data >= median)
+		if (stacks->b->next == stacks->b)
 		{
-			printf("push to a");
+			pa(stacks);
+			ra(stacks);
+			top++;
+			max++;
+		}
+		else if (stacks->b->data == get_max(stacks->b))
+		{
 			pa(stacks);
 			top++;
 		}
-		else
+		else if (stacks->b->data == get_min(stacks->b))
 		{
-			printf("rotate b");
-			rb(stacks);
+			pa(stacks);
+			ra(stacks);
+			top++;
+			max++;
 		}
-			printf("\n");
+		else
+			rb(stacks);
+	}
+	i = 0;
+	while (i < max)
+	{
+		rra(stacks);
 		i++;
 	}
-	if (stacks->b)
-		qs_b(stacks, len - top);
 	return ;
 }
 
@@ -185,45 +247,35 @@ void			quicksort(t_frame *stacks, int len)
 	if (len < 2)
 		return ;
 	top = 0;
-	printf("len: %d\n", len);
 	i = 0;
-	
 	median = get_median(stacks->a, len);
-	printf("median %d\n", median);
 	while (i < len)
 	{
-		printf("stacks->a->data: %d ", stacks->a->data);
 		if (stacks->a->data <= median)
 		{
-			printf("push to b");
 			pb(stacks);
 			top++;
 		}
 		else
-		{
-			printf("rotate a");
 			ra(stacks);
-		}
-		printf("\n");
 		i++;
 	}
-	printf("after pushing to b\n");
-	display_printf(stacks, 0, 0);
-	while (stacks->b)
+	if (stacks->b)
 		qs_b(stacks, top);
 	i = 0;
-	printf("\n-------------\n");
-	display_printf(stacks, 0, 0);
-	printf("\n-------------\n");
 	while (i < top)
 	{
 		ra(stacks);
 		i++;
 	}
-	display_printf(stacks, 0, 0);
-	upper(stacks, len - top);
-	return ;
-	printf("median %d, top: %d\n", median, top);
+	i = 0;
+	while (i < (len - top))
+	{
+		pb(stacks);
+		i++;
+	}
+	while (stacks->b)
+		qs_b(stacks, top);
 	return ;
 }
 
@@ -232,8 +284,11 @@ int				solver(t_frame *stacks)
 	int len;
 
 	len = count_list(stacks->a);
-	printf("Right order: %d\n", right_order(stacks));
-//	while (!is_sorted(stacks))
-//		quicksort(stacks, len);
+	quicksort(stacks, len);
+	if (right_order(stacks))
+	{
+		while (!is_sorted(stacks))
+			stacks->a = stacks->a->next;
+	}
 	return (1);
 }

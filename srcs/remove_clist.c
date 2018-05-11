@@ -6,7 +6,7 @@
 /*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/05 17:35:17 by aschukin          #+#    #+#             */
-/*   Updated: 2018/05/06 16:18:22 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/11 13:12:43 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	remove_head(t_clist **head)
 
 	if (!(*head))
 		return ;
-	tmp = *head;
+	tmp = (*head)->next;
 	if ((*head)->next == *head)
 	{
 		free(*head);
@@ -45,7 +45,7 @@ void	remove_head(t_clist **head)
 		(*head)->prev->next = (*head)->next;
 		(*head)->next->prev = (*head)->prev;
 		free(*head);
-		*head = tmp->next;
+		*head = tmp;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 00:59:44 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/10 20:51:31 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/11 15:26:49 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,23 @@ int		right_order(t_frame *stacks)
 {
 	int			nb;
 	t_clist		*tmp;
+	t_clist		*tmp2;
 
 	if (!stacks->a || (stacks->b))
 		return (0);
 	if (count_list(stacks->a) < 2)
 		return (1);
-	nb = stacks->a->data;
+	nb = get_min(stacks->a);
 	tmp = stacks->a->next;
-	while (nb != stacks->a->prev->data)
-	{
-		printf("nb: %d, tmp: %d\n", nb, tmp->data);
-		if (nb >= tmp->data)
-			return (0);
-		nb = tmp->data;
+	while (nb != tmp->data)
 		tmp = tmp->next;
+	tmp2 = tmp->next;
+	while (tmp2 != tmp)
+	{
+		if (nb >= tmp2->data)
+			return (0);
+		nb = tmp2->data;
+		tmp2 = tmp2->next;
 	}
 	return (1);
 }

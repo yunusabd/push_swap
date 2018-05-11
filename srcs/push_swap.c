@@ -6,7 +6,7 @@
 /*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 17:08:37 by aschukin          #+#    #+#             */
-/*   Updated: 2018/05/09 20:26:11 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/11 17:57:35 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int	main(int ac, char **av)
 	stacks->b = NULL;
 	parser(av, stacks);
 	len = count_list(stacks->a);
-	print_stacks(stacks);
-	printf((check_duplicate(stacks->a) == 1) ? "\nno duplicates\n" : "\nduplicates found\n");
-	printf((is_sorted(stacks) == 1) ? "sorted\n" : "not sorted\n");
+//	print_stacks(stacks);
+//	printf((check_duplicate(stacks->a) == 1) ? "\nno duplicates\n" : "\nduplicates found\n");
+//	printf((is_sorted(stacks) == 1) ? "sorted\n" : "not sorted\n");
 	solver(stacks);
-	print_stacks(stacks);
+//	print_stacks(stacks);
 	free_stacks(stacks);
 	return (0);
 }
