@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 16:53:10 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/11 17:57:23 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/12 22:31:04 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static int		*list_to_array(t_clist *stack)
 	int		i;
 	t_clist	*tmp;
 
-	arr = (int*)malloc(sizeof(*arr) * count_list(stack));
+	if (!stack || !(arr = (int*)malloc(sizeof(*arr) * count_list(stack))))
+		return (NULL);
 	tmp = stack;
 	i = 0;
 	while (tmp != stack->prev)
@@ -144,7 +145,7 @@ t_clist			*get_min_ptr(t_clist *stack)
 	tmp = stack->next;
 	while (tmp != stack)
 	{
-		if (ret->data < tmp->data)
+		if (ret->data > tmp->data)
 			ret = tmp;
 		tmp = tmp->next;
 	}
@@ -152,88 +153,113 @@ t_clist			*get_min_ptr(t_clist *stack)
 }
 
 /*
-** Check min, count distance to head to rotate and reverse rotate.
-** Same for max. Execute smaller value.
-*/
-/*
-t_rotate		*smart_rotate(t_clist *stack)
+ ** Check min, count distance to head to rotate and reverse rotate.
+ ** Same for max. Execute smaller value.
+ */
+
+t_rotate		*parse_info(t_clist *stack)
 {
-	int			minpos;
-	int			maxpos;
 	t_rotate	*info;
 	t_clist		*tmp;
+	int			counter;
 
 	if (!stack)
 		return (NULL);
 	info = (t_rotate*)malloc(sizeof(*info));
 	counter = 0;
+	info->len = count_list(stack);
+	info->min = get_min(stack);
+	info->max = get_max(stack);
 	info->minptr = get_min_ptr(stack);
 	info->maxptr = get_max_ptr(stack);
-	tmp = stack->next;
-	while (tmp != stack)
+	tmp = stack;
+	while (tmp->next != stack)
 	{
-		if (tmp == minptr)
-			minpos = counter;
-		else if (tmp == maxptr)
-			maxpos = counter;
+		if (tmp == info->minptr)
+			info->mindist = counter;
+		else if (tmp == info->maxptr)
+			info->maxdist = counter;
 		tmp = tmp->next;
 		counter++;
 	}
-	len = count_list(stack);
-	if (minpos < maxpos)
+	if (tmp == info->minptr)
+		info->mindist = counter;
+	else if (tmp == info->maxptr)
+		info->maxdist = counter;
+	counter = 0;
+	tmp = stack;
+	while (tmp != stack->next)
 	{
-		if (len - minpos < len - maxpos)
+		if (tmp == info->minptr)
+			info->mindist = ((ABS(counter)) < info->mindist) ? counter : info->mindist;
+		else if (tmp == info->maxptr)
+			info->maxdist = ((ABS(counter)) < info->maxdist) ? counter : info->maxdist;
+		tmp = tmp->prev;
+		counter--;
 	}
-
+	if (tmp == info->minptr)
+		info->mindist = ((ABS(counter)) < info->mindist) ? counter : info->mindist;
+	else if (tmp == info->maxptr)
+		info->maxdist = ((ABS(counter)) < info->maxdist) ? counter : info->maxdist;
 	return (info);
 }
+
+/*
+** If nb is negative, rotate stack b back by nb, otherwise rotate forward.
 */
+
+void			do_rotate(int nb, t_frame *stacks)
+{
+	while (nb != 0)
+	{
+		(nb < 0) ? jt(2, stacks) : jt(5, stacks);
+		nb += (nb < 0) ? 1 : -1;
+	}
+}
+
+int				smart_rotate(t_frame *stacks)
+{
+	t_rotate	*info;
+	int			rotate;
+	int			i;
+
+	info = parse_info(stacks->b);
+	i = 0;
+	rotate = 0;
+	if ((ABS(info->maxdist)) <= (ABS(info->mindist)))
+	{
+		do_rotate(info->maxdist, stacks);
+		pa(stacks);
+		rotate++;
+	}
+	else
+	{
+		do_rotate(info->mindist, stacks);
+		pa(stacks);
+		ra(stacks);
+	}
+	free(info);
+	return (rotate);
+}
 
 void			qs_b(t_frame *stacks, int len)
 {
-	int	i;
-	int	top;
 	int	median;
 	int	max;
+	int	i;
 
 	if (!(stacks->b) || len == 1)
 	{
 		pa(stacks);
 		return ;
 	}
-	top = 0;
 	max = 0;
 	median = get_median(stacks->b, len);
 	while (stacks->b)
-	{
-		if (stacks->b->next == stacks->b)
-		{
-			pa(stacks);
-			ra(stacks);
-			top++;
-			max++;
-		}
-		else if (stacks->b->data == get_max(stacks->b))
-		{
-			pa(stacks);
-			top++;
-		}
-		else if (stacks->b->data == get_min(stacks->b))
-		{
-			pa(stacks);
-			ra(stacks);
-			top++;
-			max++;
-		}
-		else
-			rb(stacks);
-	}
+		max += smart_rotate(stacks);
 	i = 0;
-	while (i < max)
-	{
-		rra(stacks);
-		i++;
-	}
+	while (i++ < max)
+		ra(stacks);
 	return ;
 }
 
@@ -248,8 +274,10 @@ void			quicksort(t_frame *stacks, int len)
 		return ;
 	top = 0;
 	i = 0;
+	if (!stacks->a)
+		return ;
 	median = get_median(stacks->a, len);
-	while (i < len)
+	while (i++ < len)
 	{
 		if (stacks->a->data <= median)
 		{
@@ -258,22 +286,12 @@ void			quicksort(t_frame *stacks, int len)
 		}
 		else
 			ra(stacks);
-		i++;
 	}
 	if (stacks->b)
 		qs_b(stacks, top);
 	i = 0;
-	while (i < top)
-	{
-		ra(stacks);
-		i++;
-	}
-	i = 0;
-	while (i < (len - top))
-	{
+	while (i++ < (len - top))
 		pb(stacks);
-		i++;
-	}
 	while (stacks->b)
 		qs_b(stacks, top);
 	return ;
@@ -288,7 +306,11 @@ int				solver(t_frame *stacks)
 	if (right_order(stacks))
 	{
 		while (!is_sorted(stacks))
+		{
 			stacks->a = stacks->a->next;
+			write(1, "ra\n", 3);
+		}
 	}
+	display_printf(stacks, 0 , 0);
 	return (1);
 }

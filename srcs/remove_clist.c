@@ -6,7 +6,7 @@
 /*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/05 17:35:17 by aschukin          #+#    #+#             */
-/*   Updated: 2018/05/11 13:12:43 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/12 21:01:33 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,3 @@ void	remove_head(t_clist **head)
 		*head = tmp;
 	}
 }
-
-/*
-   void	remove_first_element(t_clist *head)
-   {
-   if (head->next != head)
-   remove_element(head->next);
-   }
-
-   void	remove_last_element(t_clist *head)
-   {
-   if (head->prev != head)
-   remove_element (head->prev);
-   }
-   */

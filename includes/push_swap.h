@@ -6,7 +6,7 @@
 /*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/14 16:55:38 by aschukin          #+#    #+#             */
-/*   Updated: 2018/05/11 17:47:08 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/12 20:58:53 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <stdio.h>
+
+// rrr, rra, rrb, rr, ra, rb, ss, sa, sb, pa, pb
+
+#define ABS(X) (X < 0) ? -X : X
 
 typedef struct	s_clist
 {
@@ -35,11 +39,13 @@ typedef struct	s_frame
 
 typedef struct	s_rotate
 {
-	char	*operation;
+	int		*operation;
 	int		len;
 	int		rotate;
 	int		max;
 	int		min;
+	int		maxdist;
+	int		mindist;
 	t_clist	*minptr;
 	t_clist	*maxptr;
 }				t_rotate;
