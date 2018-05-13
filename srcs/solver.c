@@ -6,87 +6,14 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 16:53:10 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/12 22:31:04 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/13 04:00:33 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 void			qs_b(t_frame *stacks, int len);
-void			quicksort(t_frame *stacks, int len);
-
-int				count_list(t_clist *stack)
-{
-	t_clist	*tmp;
-	int		elements;
-
-	if (!stack)
-		return (0);
-	tmp = stack;
-	elements = 1;
-	while (tmp != stack->prev)
-	{
-		elements++;
-		tmp = tmp->next;
-	}
-	return (elements);
-}
-
-void			sort_array(int *arr, int end)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < end - 1)
-	{
-		if (arr[i] > arr[i + 1])
-		{
-			j = arr[i];
-			arr[i] = arr[i + 1];
-			arr[i + 1] = j;
-			i = 0;
-		}
-		else
-			i++;
-	}
-}
-
-static int		*list_to_array(t_clist *stack)
-{
-	int		*arr;
-	int		i;
-	t_clist	*tmp;
-
-	if (!stack || !(arr = (int*)malloc(sizeof(*arr) * count_list(stack))))
-		return (NULL);
-	tmp = stack;
-	i = 0;
-	while (tmp != stack->prev)
-	{
-		arr[i] = tmp->data;
-		tmp = tmp->next;
-		i++;
-	}
-	arr[i] = tmp->data;
-	return (arr);
-}
-
-int				get_median(t_clist *stack, int len)
-{
-	int	*arr;
-	int	ret;
-	int	i;
-
-	arr = list_to_array(stack);
-	sort_array(arr, len);
-	i = 0;
-	while (arr[i])
-		i++;
-	ret = arr[len / 2];
-	free(arr);
-	return (ret);
-}
+void			quicksort(t_frame *stacks, int len, int up);
 
 int				get_min(t_clist *stack)
 {
@@ -204,18 +131,47 @@ t_rotate		*parse_info(t_clist *stack)
 	return (info);
 }
 
+void			index_compare(t_frame *stacks)
+{
+	if (stacks->b->data - stacks->a->data == -1)
+	{
+		printf("top b to top a\n");
+		pa(stacks);
+	}
+	if (stacks->b->data - stacks->a->data == 1)
+	{
+		printf("top b to second a\n");
+		pa(stacks);
+		sa(stacks);
+	}
+	else if (stacks->b->data - stacks->a->prev->data == 1)
+	{
+		printf("top b to bottom a\n");
+		rra(stacks);
+		pa(stacks);
+	}
+	else if (stacks->b->data - stacks->a->prev->data == -1)
+	{
+		printf("top b to second from bottom a\n");
+		pa(stacks);
+		ra(stacks);
+	}
+}
+
 /*
-** If nb is negative, rotate stack b back by nb, otherwise rotate forward.
-*/
+ ** If nb is negative, rotate stack b back by nb, otherwise rotate forward.
+ */
 
 void			do_rotate(int nb, t_frame *stacks)
 {
 	while (nb != 0)
 	{
+		//index_compare(stacks);
 		(nb < 0) ? jt(2, stacks) : jt(5, stacks);
 		nb += (nb < 0) ? 1 : -1;
 	}
 }
+
 
 int				smart_rotate(t_frame *stacks)
 {
@@ -245,25 +201,50 @@ int				smart_rotate(t_frame *stacks)
 void			qs_b(t_frame *stacks, int len)
 {
 	int	median;
-	int	max;
 	int	i;
+	int	b_len;
+	int	counter;
 
+	print_stacks(stacks);
 	if (!(stacks->b) || len == 1)
 	{
+		printf("len 1\n");
 		pa(stacks);
 		return ;
 	}
-	max = 0;
-	median = get_median(stacks->b, len);
-	while (stacks->b)
-		max += smart_rotate(stacks);
+	b_len = count_list(stacks->b);
 	i = 0;
-	while (i++ < max)
+	counter = 0;
+	median = get_median(stacks->b, len);
+/*	if (b_len > 10)
+	{
+		//push it back to a in batches
+		printf("greater ten%d\n", i);
+		while (i < b_len)
+		{
+			if (stacks->b->data >= median)
+			{
+				pa(stacks);
+				counter++;
+			}
+			else
+				rb(stacks);
+			i++;
+		}
+		print_stacks(stacks);
+		printf("running qsagain\n");
+		i = 0;
+		quicksort(stacks, counter, 0);
+		return ;
+	}
+*/	while (stacks->b)
+		i += smart_rotate(stacks);
+	while (i--)
 		ra(stacks);
 	return ;
 }
 
-void			quicksort(t_frame *stacks, int len)
+void			quicksort(t_frame *stacks, int len, int up)
 {
 	int		i;
 	int		median;
@@ -277,40 +258,76 @@ void			quicksort(t_frame *stacks, int len)
 	if (!stacks->a)
 		return ;
 	median = get_median(stacks->a, len);
-	while (i++ < len)
+	while (i < len)
 	{
-		if (stacks->a->data <= median)
+		if (!up && stacks->a->data <= median)
 		{
-			pb(stacks);
+			if (stacks->a->data <= median / 2)
+				pb(stacks);
+			else
+			{
+				pb(stacks);
+				rb(stacks);
+			}
+			top++;
+		}
+		else if (up)
+		{
+			if (stacks->a->data <= median)
+				pb(stacks);
+			else
+			{
+				pb(stacks);
+				rb(stacks);
+			}
 			top++;
 		}
 		else
 			ra(stacks);
+		i++;
 	}
 	if (stacks->b)
 		qs_b(stacks, top);
-	i = 0;
-	while (i++ < (len - top))
-		pb(stacks);
-	while (stacks->b)
-		qs_b(stacks, top);
+	quicksort(stacks, (len - top), 1);
 	return ;
 }
 
 int				solver(t_frame *stacks)
 {
-	int len;
+	int		len;
+	t_frame	*tmp;
+	t_clist	*new;
+	int		i;
 
+	tmp = stacks;
+	new = normalize(stacks, NULL, 0, 0);
+	stacks->original = stacks->a;
+	stacks->a = new;
+	stacks->b = NULL;
 	len = count_list(stacks->a);
-	quicksort(stacks, len);
+	quicksort(stacks, len, 0);
 	if (right_order(stacks))
 	{
-		while (!is_sorted(stacks))
+		i = 0;
+		while (i < len / 2)
+			i++;
+		if (i < len / 2)
 		{
-			stacks->a = stacks->a->next;
-			write(1, "ra\n", 3);
+			while (!is_sorted(stacks))
+			{
+				stacks->a = stacks->a->next;
+				write(1, "ra\n", 3);
+			}
+		}
+		else
+		{
+			while (!is_sorted(stacks))
+			{
+				stacks->a = stacks->a->prev;
+				write(1, "rra\n", 4);
+			}
 		}
 	}
-	display_printf(stacks, 0 , 0);
+	print_stacks(stacks);
 	return (1);
 }
