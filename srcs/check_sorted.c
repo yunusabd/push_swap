@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 00:59:44 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/11 15:26:49 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/14 21:39:52 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,16 @@
 
 int		is_sorted(t_frame *stacks)
 {
-	int			len;
 	t_clist		*tmp;
 
 	if (!stacks->a || (stacks->b))
 		return (0);
-	len = count_list(stacks->a);
 	tmp = stacks->a;
-	while (len && tmp && tmp != stacks->a->prev)
+	while (tmp != stacks->a->prev)
 	{
 		if (tmp->data >= tmp->next->data)
 			return (0);
 		tmp = tmp->next;
-		len--;
 	}
 	return (1);
 }
@@ -36,18 +33,18 @@ int		is_sorted(t_frame *stacks)
 ** neccessarily the smallest number.
 */
 
-int		right_order(t_frame *stacks)
+int		right_order(t_clist *stack)
 {
 	int			nb;
 	t_clist		*tmp;
 	t_clist		*tmp2;
 
-	if (!stacks->a || (stacks->b))
+	if (!stack)
 		return (0);
-	if (count_list(stacks->a) < 2)
+	if (count_list(stack) < 2)
 		return (1);
-	nb = get_min(stacks->a);
-	tmp = stacks->a->next;
+	nb = get_min(stack);
+	tmp = stack->next;
 	while (nb != tmp->data)
 		tmp = tmp->next;
 	tmp2 = tmp->next;

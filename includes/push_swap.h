@@ -6,7 +6,7 @@
 /*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/14 16:55:38 by aschukin          #+#    #+#             */
-/*   Updated: 2018/05/13 00:44:16 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/14 21:39:21 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,31 @@ typedef struct	s_clist
 	struct s_clist	*next;
 	struct s_clist	*prev;
 }				t_clist;
+
+/*
+** 1 = go to next
+** 0 = go to previous
+*/
+
+typedef struct	s_next
+{
+	int				move : 1;
+	struct s_next	*next;
+}				t_next;
+
+/*
+** Store the moves a
+*/
+
+typedef struct	s_moves
+{
+	int		shortest;
+	int		to_bigger;
+	int		to_smaller;
+	int		max;
+	int		min;
+	t_next	*moves;
+}				t_moves;
 
 typedef struct	s_frame
 {
@@ -69,7 +94,7 @@ int			get_median(t_clist *stack, int len);
 int			count_list(t_clist *stack);
 
 void		display_printf(t_frame *frame, int a_flag, int b_flag);
-int			right_order(t_frame *stacks);
+int			right_order(t_clist *stack);
 int			solver(t_frame *stacks);
 int			get_min(t_clist *stack);
 
