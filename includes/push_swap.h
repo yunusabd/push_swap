@@ -6,7 +6,7 @@
 /*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/14 16:55:38 by aschukin          #+#    #+#             */
-/*   Updated: 2018/05/14 21:39:21 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/16 14:26:22 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,36 +31,10 @@ typedef struct	s_clist
 	struct s_clist	*prev;
 }				t_clist;
 
-/*
-** 1 = go to next
-** 0 = go to previous
-*/
-
-typedef struct	s_next
-{
-	int				move : 1;
-	struct s_next	*next;
-}				t_next;
-
-/*
-** Store the moves a
-*/
-
-typedef struct	s_moves
-{
-	int		shortest;
-	int		to_bigger;
-	int		to_smaller;
-	int		max;
-	int		min;
-	t_next	*moves;
-}				t_moves;
-
 typedef struct	s_frame
 {
 	t_clist	*a;
 	t_clist	*b;
-	t_clist	*original;
 }				t_frame;
 
 typedef struct	s_rotate
