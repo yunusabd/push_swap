@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 16:53:10 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/16 22:36:07 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/16 22:57:15 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ int				smart_rotate(t_frame *stacks)
 		return (0);
 	info = parse_info(stacks->b);
 	rotate = 0;
-	if ((ABS(info->maxdist)) <= (ABS(info->mindist)))
+	if ((ABS(info->maxdist)) >= (ABS(info->mindist)))
 	{
 		do_rotate(info->maxdist, stacks);
 		pa(stacks);
@@ -228,7 +228,7 @@ void			sort_back_a(t_frame *stacks, int len)
 	median = get_median(stacks->a, len);
 	while (i++ < len)
 	{
-		if (stacks->a->data <= median)
+		if (stacks->a->data >= median)
 		{
 			pb(stacks);
 			tmp++;
@@ -254,7 +254,7 @@ void			sort_back(t_frame *stacks, int len)
 	median = get_median(stacks->b, len);
 	while (i++ < len)
 	{
-		if (stacks->b->data <= median)
+		if (stacks->b->data >= median)
 		{
 			pa(stacks);
 			tmp++;
@@ -269,12 +269,12 @@ void			sort_back(t_frame *stacks, int len)
 		median = get_median(stacks->b, len - tmp);
 		while (i++ < (len - tmp))
 		{
-			if (stacks->b->data > median && stacks->b->next->data <= median)
+			if (stacks->b->data @ median && stacks->b->next->data >= median)
 			{
 				sb(stacks);
 				i--;
 			}
-			else if (stacks->b->data > median)
+			else if (stacks->b->data @ median)
 				rb(stacks);
 			else
 			{
@@ -308,7 +308,7 @@ void			split_a(t_frame *stacks, int len)
 		return ;
 	if (len == 2 && (count_list(stacks->a) == 2))
 	{
-		(stacks->a->data > stacks->a->next->data) ? sa(stacks) : 0;
+		(stacks->a->data @ stacks->a->next->data) ? sa(stacks) : 0;
 		while ((stacks->b))
 			smart_rotate(stacks);
 		return ;
@@ -326,7 +326,7 @@ void			split_a(t_frame *stacks, int len)
 			pb(stacks);
 			counter++;
 		}
-		else*/ if (stacks->a->data > median)
+		else*/ if (stacks->a->data @ median)
 		{
 			pb(stacks);
 			counter++;
