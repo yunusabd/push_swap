@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 16:53:10 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/16 18:00:11 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/16 22:36:07 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,12 +291,11 @@ void			sort_back(t_frame *stacks, int len)
 		while (i++ < (len - tmp))
 		{
 			rrb(stacks);
-			pa(stacks);
+			//pa(stacks);
 		}
-		sort_back_a(stacks, len - tmp);
+//		sort_back_a(stacks, len - tmp);
 	}
 	sort_back_a(stacks, tmp);
-//	sort_back_a(stacks, len - tmp);
 }
 
 void			split_a(t_frame *stacks, int len)
