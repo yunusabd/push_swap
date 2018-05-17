@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/05 19:11:27 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/12 19:44:55 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/17 17:17:59 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		rra(t_frame *stacks)
 	if (stacks->a && stacks->a->prev)
 	{
 		stacks->a = stacks->a->prev;
-		write(1, "rra\n", 4);
+		add_list(stacks, RRA);
 	}
 }
 
@@ -26,7 +26,7 @@ void		rrb(t_frame *stacks)
 	if (stacks->b && stacks->b->prev)
 	{
 		stacks->b = stacks->b->prev;
-		write(1, "rrb\n", 4);
+		add_list(stacks, RRB);
 	}
 }
 

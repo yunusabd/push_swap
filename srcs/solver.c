@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 16:53:10 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/16 22:57:15 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/17 22:33:37 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,8 +156,8 @@ void			do_rotate_a(int nb, t_frame *stacks)
 }
 
 /*
- ** Returns the number of moves from current position to nb.
- */
+** Returns the number of moves from current position to nb.
+*/
 
 int				get_dist(t_clist *stack, int nb)
 {
@@ -200,7 +200,7 @@ int				smart_rotate(t_frame *stacks)
 		return (0);
 	info = parse_info(stacks->b);
 	rotate = 0;
-	if ((ABS(info->maxdist)) >= (ABS(info->mindist)))
+	if ((ABS(info->maxdist)) - 2 <= (ABS(info->mindist)))
 	{
 		do_rotate(info->maxdist, stacks);
 		pa(stacks);
@@ -228,17 +228,26 @@ void			sort_back_a(t_frame *stacks, int len)
 	median = get_median(stacks->a, len);
 	while (i++ < len)
 	{
-		if (stacks->a->data >= median)
+		/*if (stacks->a->data >= median && stacks->a->next->data < median)
+		{
+			sa(stacks);
+			i--;
+		}
+		else*/ if (stacks->a->data <= median)
 		{
 			pb(stacks);
-			tmp++;
 		}
 		else
 		{
 			pb(stacks);
 			rb(stacks);
+			tmp++;
+//			pb(stacks);
+//			rb(stacks);
 		}
 	}
+	while (tmp--)
+		rrb(stacks);
 }
 
 void			sort_back(t_frame *stacks, int len)
@@ -269,12 +278,12 @@ void			sort_back(t_frame *stacks, int len)
 		median = get_median(stacks->b, len - tmp);
 		while (i++ < (len - tmp))
 		{
-			if (stacks->b->data @ median && stacks->b->next->data >= median)
+		/*	if (stacks->b->data < median && stacks->b->next->data >= median)
 			{
 				sb(stacks);
 				i--;
 			}
-			else if (stacks->b->data @ median)
+			else*/ if (stacks->b->data < median)
 				rb(stacks);
 			else
 			{
@@ -308,7 +317,7 @@ void			split_a(t_frame *stacks, int len)
 		return ;
 	if (len == 2 && (count_list(stacks->a) == 2))
 	{
-		(stacks->a->data @ stacks->a->next->data) ? sa(stacks) : 0;
+		(stacks->a->data > stacks->a->next->data) ? sa(stacks) : 0;
 		while ((stacks->b))
 			smart_rotate(stacks);
 		return ;
@@ -320,17 +329,18 @@ void			split_a(t_frame *stacks, int len)
 	median = get_median(stacks->a, len);
 	while (i++ < len)
 	{
-/*		if (stacks->a->data > median && stacks->a->next->data > median
+	/*	if (stacks->a->data > median && stacks->a->next->data < median
 				&& stacks->a != stacks->a->next)
 		{
-			pb(stacks);
-			counter++;
+			sa(stacks);
+			i--;
 		}
-		else*/ if (stacks->a->data @ median)
+		else
+	*/
+	   	if (stacks->a->data < median)
 		{
 			pb(stacks);
 			counter++;
-			//sa(stacks);
 		}
 		else
 			ra(stacks);
@@ -346,8 +356,6 @@ void			quicksort(t_frame *stacks, int len)
 	split_a(stacks, len);
 	return ;
 }
-
-//int			count_moves(t_clist *stack, int len, t_clist *curr, t_moves *moves)
 
 int				solver(t_frame *stacks)
 {

@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/05 19:11:27 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/12 21:02:47 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/17 01:20:18 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		pa(t_frame *stacks)
 	else
 		stacks->a = create_clist(stacks->b->data, stacks);
 	remove_head(&(stacks->b));
-	write(1, "pa\n", 3);
+	add_list(stacks, PA);
 }
 
 void		pb(t_frame *stacks)
@@ -33,5 +33,5 @@ void		pb(t_frame *stacks)
 	else
 		stacks->b = create_clist(stacks->a->data, stacks);
 	remove_head(&(stacks->a));
-	write(1, "pb\n", 3);
+	add_list(stacks, PB);
 }

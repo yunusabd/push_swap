@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 23:26:09 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/13 01:08:08 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/17 17:28:48 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void		get_input(t_frame *stacks)
 			if (0 == ft_strcmp(line, commands[i]))
 			{
 				jt(i, stacks);
+				print_stacks(stacks);
 				break ;
 			}
 			i++;

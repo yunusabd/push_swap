@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/05 19:11:27 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/11 17:51:24 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/17 17:17:12 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		sa(t_frame *stacks)
 		tmp = stacks->a->data;
 		stacks->a->data = stacks->a->next->data;
 		stacks->a->next->data = tmp;
-		write(1, "sa\n", 3);
+		add_list(stacks, SA);
 	}
 }
 
@@ -34,7 +34,7 @@ void		sb(t_frame *stacks)
 		tmp = stacks->b->data;
 		stacks->b->data = stacks->b->next->data;
 		stacks->b->next->data = tmp;
-		write(1, "sb\n", 3);
+		add_list(stacks, SB);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 17:08:37 by aschukin          #+#    #+#             */
-/*   Updated: 2018/05/13 01:31:47 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/17 17:28:10 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int ac, char **av)
 	i = 1;
 	stacks = (t_frame*)malloc(sizeof(*stacks));
 	stacks->b = NULL;
+	create_moves(stacks, 11);
 	parser(av, stacks);
 	get_input(stacks);
 	print_stacks(stacks);

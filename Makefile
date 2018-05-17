@@ -5,10 +5,11 @@ SRCS_PATH = srcs
 SRC_FILES1 = checker.c create_clist.c error_parser.c remove_clist.c swap.c \
 			rotate.c reverse_rotate.c push.c error_handler.c print_stacks.c \
 			get_input.c get_next_line.c jump_table.c check_sorted.c solver.c \
-			normalize.c
+			normalize.c list_functions.c optimizer.c
 SRC_FILES2 = push_swap.c create_clist.c error_parser.c remove_clist.c swap.c \
 			rotate.c reverse_rotate.c push.c error_handler.c print_stacks.c \
-			jump_table.c check_sorted.c solver.c normalize.c
+			jump_table.c check_sorted.c solver.c normalize.c list_functions.c \
+			optimizer.c
 
 SRCS1 = $(addprefix $(SRCS_PATH)/,$(SRC_FILES1))
 SRCS2 = $(addprefix $(SRCS_PATH)/,$(SRC_FILES2))
