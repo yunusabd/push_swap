@@ -6,10 +6,10 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 16:53:10 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/17 22:33:37 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/17 22:38:46 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+popo
 #include "push_swap.h"
 
 void			split_a(t_frame *stacks, int len);
