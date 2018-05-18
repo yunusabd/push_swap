@@ -6,7 +6,7 @@
 /*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/14 16:55:38 by aschukin          #+#    #+#             */
-/*   Updated: 2018/05/17 17:21:02 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/18 01:35:37 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef	struct	s_moves
 {
 	int				move : 8;
 	struct s_moves	*next;
+	struct s_moves	*prev;
 }				t_moves;
 
 typedef struct	s_frame
@@ -66,6 +67,7 @@ typedef struct	s_rotate
 	int		min;
 	int		maxdist;
 	int		mindist;
+	int		flag : 1;
 	t_clist	*minptr;
 	t_clist	*maxptr;
 }				t_rotate;

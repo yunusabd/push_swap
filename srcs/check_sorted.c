@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 00:59:44 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/14 21:39:52 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/18 02:28:50 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ int		is_sorted(t_frame *stacks)
 	if (!stacks->a || (stacks->b))
 		return (0);
 	tmp = stacks->a;
-	while (tmp != stacks->a->prev)
+	while (tmp->next != stacks->a)
 	{
 		if (tmp->data >= tmp->next->data)
 			return (0);
 		tmp = tmp->next;
 	}
+	if (tmp->data == tmp->next->data)
+		return (0);
 	return (1);
 }
 
