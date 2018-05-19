@@ -1,15 +1,27 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2018/05/19 13:45:52 by yabdulha          #+#    #+#              #
+#    Updated: 2018/05/19 13:46:07 by yabdulha         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME1 = checker
 NAME2 = push_swap
 
 SRCS_PATH = srcs
 SRC_FILES1 = checker.c create_clist.c error_parser.c remove_clist.c swap.c \
-			rotate.c reverse_rotate.c push.c error_handler.c print_stacks.c \
-			get_input.c get_next_line.c jump_table.c check_sorted.c solver.c \
-			normalize.c list_functions.c optimizer.c
+			 rotate.c reverse_rotate.c push.c error_handler.c print_stacks.c \
+			 get_input.c get_next_line.c jump_table.c check_sorted.c solver.c \
+			 normalize.c list_functions.c optimizer.c
 SRC_FILES2 = push_swap.c create_clist.c error_parser.c remove_clist.c swap.c \
-			rotate.c reverse_rotate.c push.c error_handler.c print_stacks.c \
-			jump_table.c check_sorted.c solver.c normalize.c list_functions.c \
-			optimizer.c
+			 rotate.c reverse_rotate.c push.c error_handler.c print_stacks.c \
+			 jump_table.c check_sorted.c solver.c normalize.c list_functions.c \
+			 optimizer.c
 
 SRCS1 = $(addprefix $(SRCS_PATH)/,$(SRC_FILES1))
 SRCS2 = $(addprefix $(SRCS_PATH)/,$(SRC_FILES2))
@@ -17,9 +29,9 @@ SRCS2 = $(addprefix $(SRCS_PATH)/,$(SRC_FILES2))
 OBJS_PATH = objects
 OBJS_PATH2 = objects2
 OBJS_NAME1 = $(SRC_FILES1:.c=.o)
-OBJS_NAME2 = $(SRC_FILES2:.c=.o)
-OBJS1 = $(addprefix $(OBJS_PATH)/,$(OBJS_NAME1))
-OBJS2 = $(addprefix $(OBJS_PATH2)/,$(OBJS_NAME2))
+	OBJS_NAME2 = $(SRC_FILES2:.c=.o)
+	OBJS1 = $(addprefix $(OBJS_PATH)/,$(OBJS_NAME1))
+	OBJS2 = $(addprefix $(OBJS_PATH2)/,$(OBJS_NAME2))
 
 INCLUDES_PATH = includes
 
@@ -32,7 +44,7 @@ LIBFT_PATH = libft
 LIB = $(addprefix $(LIBFT_PATH)/,libft.a)
 
 .SILENT: all, clean, fclean, re, ch, pw
-.PHONY: all, clean, fclean, re, ch, pw
+	.PHONY: all, clean, fclean, re, ch, pw
 
 ch: $(NAME1)
 
@@ -88,3 +100,4 @@ fclean: clean
 	@echo "\033[32;3mFcleaning Done !\n\033[0m"
 
 re: fclean all
+

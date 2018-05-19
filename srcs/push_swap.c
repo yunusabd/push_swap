@@ -6,7 +6,7 @@
 /*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 17:08:37 by aschukin          #+#    #+#             */
-/*   Updated: 2018/05/17 17:20:40 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/19 13:53:09 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ int	main(int ac, char **av)
 	solver(stacks);
 	while (optimizer(stacks, stacks->moves) == 1)
 		i++;
-	while (stacks->moves)
+	while (stacks->moves->next->move != 11)
 	{
 		printf("%s\n", m[stacks->moves->move]);
 		stacks->moves = stacks->moves->next;
 	}
+	//print_stacks(stacks);
 	free_stacks(stacks);
 	return (0);
 }
