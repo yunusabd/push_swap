@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 16:53:10 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/19 15:07:29 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/19 18:09:33 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,28 +240,55 @@ void			sort_back_a(t_frame *stacks, int len)
 	int	median;
 	int	i;
 	int	tmp;
+	int	counter;
+	int	flag;
 
 	i = 0;
 	tmp = 0;
+	counter = 0;
+	flag = 0;
 	median = get_median(stacks->a, len);
 	while (i++ < len)
 	{
-		if (stacks->a->data <= median)
+		if (stacks->a->data >= median)
 		{
+			while (flag > 0)
+			{
+				rb(stacks);
+				flag--;
+			}
+			if (stacks->a->data < median / 2)
+				flag++;
 			pb(stacks);
 		}
 		else
 		{
 			pb(stacks);
 			rb(stacks);
-			tmp++;
 		}
+		/*
+			if (stacks->b && stacks->moves->prev->move != PB &&
+					stacks->b->data > median)
+				flag++;
+			else if (stacks->b && stacks->moves->prev->move != PB
+					&& stacks->b->data > median &&
+					stacks->b->next->data < median)
+			{
+				sb(stacks);
+				flag++;
+			}
+			if (flag > 0)
+			{
+				rr(stacks);
+				flag--;
+			}
+			else
+				ra(stacks);
+		}*/
 	}
-	while (tmp--)
-		rrb(stacks);
 }
 
-void			sort_back(t_frame *stacks, int len)
+int				sort_back(t_frame *stacks, int len)
 {
 	int	median;
 	int	i;
@@ -269,19 +296,20 @@ void			sort_back(t_frame *stacks, int len)
 
 	i = 0;
 	tmp = 0;
-	median = get_median(stacks->b, len / 2);
+	median = get_median(stacks->b, len);
 	while (i++ < len)
 	{
-		if (stacks->b->data >= median)
+		if (stacks->b->data > median)
 		{
 			pa(stacks);
 			tmp++;
 		}
 		else
+		{
 			rb(stacks);
+		}
 	}
-//	split_a(stacks, tmp);
-	sort_back_a(stacks, tmp);
+	return (tmp);
 }
 
 void			split_a(t_frame *stacks, int len)
@@ -290,6 +318,8 @@ void			split_a(t_frame *stacks, int len)
 	int	i;
 	int	counter;
 	int	flag;
+	int	min;
+	int	pushed;
 
 	if (!(stacks->a))
 		return ;
@@ -306,9 +336,10 @@ void			split_a(t_frame *stacks, int len)
 	counter = 0;
 	median = get_median(stacks->a, len);
 	flag = 0;
+	min = 0;
 	while (i++ < len)
 	{
-		if (stacks->a->data < median)
+		if (stacks->a->data <= median)
 		{
 			while (flag > 0)
 			{
@@ -316,7 +347,10 @@ void			split_a(t_frame *stacks, int len)
 				flag--;
 			}
 			if (stacks->a->data < median / 2)
+			{
 				flag++;
+				min++;
+			}
 			pb(stacks);
 			counter++;
 		}
@@ -342,7 +376,11 @@ void			split_a(t_frame *stacks, int len)
 		}
 	}
 	if (counter > 20)
-		sort_back(stacks, counter);
+	{
+		pushed = sort_back(stacks, min);
+		sort_back_a(stacks, sort_back(stacks, counter - min));
+		sort_back_a(stacks, pushed);
+	}
 	split_a(stacks, len - counter);
 	return ;
 }
