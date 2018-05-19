@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/19 13:50:26 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/19 13:51:14 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/19 22:00:57 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,11 @@ typedef struct	s_rotate
 	int		min;
 	int		maxdist;
 	int		mindist;
+	int		maxdist2;
+	int		mindist2;
+	int		maxdist3;
+	int		mindist3;
 	int		flag : 1;
-	t_clist	*minptr;
-	t_clist	*maxptr;
 }				t_rotate;
 
 t_clist		*normalize(t_frame *stacks, t_clist *new, int i, int j);

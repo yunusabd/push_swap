@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 16:53:10 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/19 18:09:33 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/19 22:05:28 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,38 @@ t_clist			*get_min_ptr(t_clist *stack)
 }
 
 /*
- ** Check min, count distance to head to rotate and reverse rotate.
- ** Same for max. Execute smaller value.
- */
+** Returns the number of moves from current position to nb.
+*/
+
+int				get_dist(t_clist *stack, int nb)
+{
+	int		i;
+	t_clist	*tmp;
+	t_clist	*tmp2;
+
+	i = 0;
+	tmp = stack;
+	tmp2 = stack;
+	while (tmp != stack->prev)
+	{
+		if (tmp->data == nb)
+			return (i);
+		else if (tmp2->data == nb)
+			return ((-i));
+		i++;
+		tmp = tmp->next;
+		tmp2 = tmp2->prev;
+	}
+	return (-1);
+}
+/*
+** Check min, count distance to head to rotate and reverse rotate.
+** Same for max. Execute smaller value.
+*/
 
 t_rotate		*parse_info(t_clist *stack)
 {
 	t_rotate	*info;
-	t_clist		*tmp;
 	int			counter;
 
 	if (!stack)
@@ -97,37 +121,12 @@ t_rotate		*parse_info(t_clist *stack)
 	info->len = count_list(stack);
 	info->min = get_min(stack);
 	info->max = get_max(stack);
-	info->minptr = get_min_ptr(stack);
-	info->maxptr = get_max_ptr(stack);
-	tmp = stack;
-	while (tmp->next != stack)
-	{
-		if (tmp == info->minptr)
-			info->mindist = counter;
-		else if (tmp == info->maxptr)
-			info->maxdist = counter;
-		tmp = tmp->next;
-		counter++;
-	}
-	if (tmp == info->minptr)
-		info->mindist = counter;
-	else if (tmp == info->maxptr)
-		info->maxdist = counter;
-	counter = 0;
-	tmp = stack;
-	while (tmp != stack->next)
-	{
-		if (tmp == info->minptr)
-			info->mindist = ((ABS(counter)) < info->mindist) ? counter : info->mindist;
-		else if (tmp == info->maxptr)
-			info->maxdist = ((ABS(counter)) < info->maxdist) ? counter : info->maxdist;
-		tmp = tmp->prev;
-		counter--;
-	}
-	if (tmp == info->minptr)
-		info->mindist = ((ABS(counter)) < info->mindist) ? counter : info->mindist;
-	else if (tmp == info->maxptr)
-		info->maxdist = ((ABS(counter)) < info->maxdist) ? counter : info->maxdist;
+	info->mindist = get_dist(stack, info->min);
+	info->maxdist = get_dist(stack, info->max);
+	info->mindist2 = get_dist(stack, info->min + 1);
+	info->maxdist2 = get_dist(stack, info->max - 1);
+	info->mindist3 = get_dist(stack, info->min + 2);
+	info->maxdist3 = get_dist(stack, info->max - 2);
 	return (info);
 }
 
@@ -155,31 +154,13 @@ void			do_rotate_a(int nb, t_frame *stacks)
 	}
 }
 
+
 /*
- ** Returns the number of moves from current position to nb.
- */
-
-int				get_dist(t_clist *stack, int nb)
+void			check_ss(t_frame *stacks)
 {
-	int		i;
-	t_clist	*tmp;
-	t_clist	*tmp2;
-
-	i = 0;
-	tmp = stack;
-	tmp2 = stack;
-	while (tmp != stack->prev)
-	{
-		if (tmp->data == nb)
-			return (i);
-		else if (tmp2->data == nb)
-			return ((-i));
-		i++;
-		tmp = tmp->next;
-		tmp2 = tmp2->prev;
-	}
-	return (-1);
+	if (stacks->a->data > )
 }
+*/
 
 void			go_shortest_b(t_frame *stacks, int nb)
 {
@@ -213,6 +194,14 @@ void			smart_rotate(t_frame *stacks)
 			go_shortest_b(stacks, info->max);
 			pa(stacks);
 		}
+	}
+	else if ((ABS(info->maxdist2)) - 3 <= (ABS(info->mindist)))
+	{
+		go_shortest_b(stacks, info->max - 1);
+		pa(stacks);
+		go_shortest_b(stacks, info->max);
+		pa(stacks);
+		sa(stacks);
 	}
 	else
 	{
@@ -375,7 +364,7 @@ void			split_a(t_frame *stacks, int len)
 				ra(stacks);
 		}
 	}
-	if (counter > 20)
+	if (counter > 25)
 	{
 		pushed = sort_back(stacks, min);
 		sort_back_a(stacks, sort_back(stacks, counter - min));
