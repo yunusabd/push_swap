@@ -6,14 +6,11 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 16:53:10 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/19 22:05:28 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/21 16:08:32 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void			split_a(t_frame *stacks, int len);
-void			quicksort(t_frame *stacks, int len);
 
 int				get_min(t_clist *stack)
 {
@@ -127,6 +124,11 @@ t_rotate		*parse_info(t_clist *stack)
 	info->maxdist2 = get_dist(stack, info->max - 1);
 	info->mindist3 = get_dist(stack, info->min + 2);
 	info->maxdist3 = get_dist(stack, info->max - 2);
+	info->sorted[0] = ABS(info->maxdist);
+	info->sorted[1] = ABS(info->mindist);
+	info->sorted[2] = ABS(info->maxdist2);
+	info->sorted[3] = ABS(info->mindist2);
+	sort_array(info->sorted, 4);
 	return (info);
 }
 
@@ -154,14 +156,6 @@ void			do_rotate_a(int nb, t_frame *stacks)
 	}
 }
 
-
-/*
-void			check_ss(t_frame *stacks)
-{
-	if (stacks->a->data > )
-}
-*/
-
 void			go_shortest_b(t_frame *stacks, int nb)
 {
 	int		distance;
@@ -174,54 +168,40 @@ void			go_shortest_b(t_frame *stacks, int nb)
 
 void			smart_rotate(t_frame *stacks)
 {
-	t_rotate	*info;
+	t_rotate	*i;
 
 	if (!stacks->a)
 		return ;
-	info = parse_info(stacks->b);
-	if ((ABS(info->maxdist)) - 2 <= (ABS(info->mindist)))
+	i = parse_info(stacks->b);
+	if (i->sorted[0] == ABS(i->maxdist))
 	{
-		if ((ABS(get_dist(stacks->b, info->max - 1))) < (ABS(info->maxdist)))
-		{
-			go_shortest_b(stacks, info->max - 1);
-			pa(stacks);
-			go_shortest_b(stacks, info->max);
-			pa(stacks);
-			sa(stacks);
-		}
-		else
-		{
-			go_shortest_b(stacks, info->max);
-			pa(stacks);
-		}
-	}
-	else if ((ABS(info->maxdist2)) - 3 <= (ABS(info->mindist)))
-	{
-		go_shortest_b(stacks, info->max - 1);
+		go_shortest_b(stacks, i->max);
 		pa(stacks);
-		go_shortest_b(stacks, info->max);
+	}
+	else if (i->sorted[0] == ABS(i->maxdist2))
+	{
+		go_shortest_b(stacks, i->max - 1);
+		pa(stacks);
+		go_shortest_b(stacks, i->max);
 		pa(stacks);
 		sa(stacks);
 	}
-	else
+	else if (i->sorted[0] == ABS(i->mindist))
 	{
-		if ((ABS(get_dist(stacks->b, info->min + 1))) < (ABS(info->mindist)))
-		{
-			go_shortest_b(stacks, info->min + 1);
-			pa(stacks);
-			go_shortest_b(stacks, info->min);
-			pa(stacks);
-			ra(stacks);
-			ra(stacks);
-		}
-		else
-		{
-			go_shortest_b(stacks, info->min);
-			pa(stacks);
-			ra(stacks);
-		}
+		go_shortest_b(stacks, i->min);
+		pa(stacks);
+		ra(stacks);
 	}
-	free(info);
+	else if (i->sorted[0] == ABS(i->mindist2))
+	{
+		go_shortest_b(stacks, i->min + 1);
+		pa(stacks);
+		go_shortest_b(stacks, i->min);
+		pa(stacks);
+		ra(stacks);
+		ra(stacks);
+	}
+	free(i);
 }
 
 void			sort_back_a(t_frame *stacks, int len)
@@ -240,40 +220,12 @@ void			sort_back_a(t_frame *stacks, int len)
 	while (i++ < len)
 	{
 		if (stacks->a->data >= median)
-		{
-			while (flag > 0)
-			{
-				rb(stacks);
-				flag--;
-			}
-			if (stacks->a->data < median / 2)
-				flag++;
 			pb(stacks);
-		}
 		else
 		{
 			pb(stacks);
 			rb(stacks);
 		}
-		/*
-			if (stacks->b && stacks->moves->prev->move != PB &&
-					stacks->b->data > median)
-				flag++;
-			else if (stacks->b && stacks->moves->prev->move != PB
-					&& stacks->b->data > median &&
-					stacks->b->next->data < median)
-			{
-				sb(stacks);
-				flag++;
-			}
-			if (flag > 0)
-			{
-				rr(stacks);
-				flag--;
-			}
-			else
-				ra(stacks);
-		}*/
 	}
 }
 

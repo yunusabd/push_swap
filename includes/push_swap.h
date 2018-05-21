@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/19 13:50:26 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/19 22:00:57 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/21 16:06:42 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct	s_rotate
 	int		mindist2;
 	int		maxdist3;
 	int		mindist3;
+	int		sorted[4];
 	int		flag : 1;
 }				t_rotate;
 
@@ -89,11 +90,14 @@ int			count_list(t_clist *stack);
 
 int			get_median(t_clist *stack, int len);
 int			count_list(t_clist *stack);
+void		sort_array(int *arr, int end);
 
 void		display_printf(t_frame *frame, int a_flag, int b_flag);
 int			right_order(t_clist *stack);
 int			solver(t_frame *stacks);
 int			get_min(t_clist *stack);
+void		split_a(t_frame *stacks, int len);
+void		quicksort(t_frame *stacks, int len);
 
 void		error_exit(t_frame *stacks);
 void		free_stacks(t_frame *stacks);
