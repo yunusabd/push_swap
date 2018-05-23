@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 16:53:10 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/16 14:28:55 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/21 22:04:24 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,11 @@ int				get_median(t_clist *stack, int len)
 {
 	int	*arr;
 	int	ret;
-	int	i;
 
 	if (!(stack))
 		return (-1);
 	arr = list_to_array(stack);
 	sort_array(arr, len);
-	i = 0;
-	while (arr[i])
-		i++;
 	ret = arr[len / 2];
 	free(arr);
 	return (ret);
@@ -94,9 +90,8 @@ t_clist			*normalize(t_frame *stacks, t_clist *new, int i, int j)
 	int		len;
 
 	len = count_list(stacks->a);
-	if (!(arr = list_to_array(stacks->a)))
-		error_exit(stacks);
-	if (!(unsorted = list_to_array(stacks->a)))
+	if (!(arr = list_to_array(stacks->a)) ||
+			(!(unsorted = list_to_array(stacks->a))))
 		error_exit(stacks);
 	sort_array(arr, len);
 	i = len;
@@ -113,5 +108,6 @@ t_clist			*normalize(t_frame *stacks, t_clist *new, int i, int j)
 		}
 	}
 	free(unsorted);
+	free(arr);
 	return (new);
 }

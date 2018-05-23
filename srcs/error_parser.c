@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/05 22:04:32 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/06 21:53:20 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/23 16:12:37 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,17 @@ void		parser(char **av, t_frame *stacks)
 	int			i;
 
 	stacks->a = NULL;
+	stacks->flags = 0;
 	i = 1;
 	while (av[i])
 	{
-		check_content(av[i], stacks);
-		fill_stack(av[i], stacks);
-		i++;
-	}
+		if (options(av[i], stacks))
+			i++;
+		else
+		{
+			check_content(av[i], stacks);
+			fill_stack(av[i], stacks);
+			i++;
+		}
+	}	
 }

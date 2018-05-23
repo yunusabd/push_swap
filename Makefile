@@ -6,7 +6,7 @@
 #    By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/19 13:45:52 by yabdulha          #+#    #+#              #
-#    Updated: 2018/05/19 13:46:07 by yabdulha         ###   ########.fr        #
+#    Updated: 2018/05/23 17:47:23 by yabdulha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,15 @@ NAME1 = checker
 NAME2 = push_swap
 
 SRCS_PATH = srcs
+
 SRC_FILES1 = checker.c create_clist.c error_parser.c remove_clist.c swap.c \
 			 rotate.c reverse_rotate.c push.c error_handler.c print_stacks.c \
 			 get_input.c get_next_line.c jump_table.c check_sorted.c solver.c \
-			 normalize.c list_functions.c optimizer.c
+			 normalize.c list_functions.c optimizer.c options.c color.c
 SRC_FILES2 = push_swap.c create_clist.c error_parser.c remove_clist.c swap.c \
 			 rotate.c reverse_rotate.c push.c error_handler.c print_stacks.c \
 			 jump_table.c check_sorted.c solver.c normalize.c list_functions.c \
-			 optimizer.c
+			 optimizer.c options.c color.c
 
 SRCS1 = $(addprefix $(SRCS_PATH)/,$(SRC_FILES1))
 SRCS2 = $(addprefix $(SRCS_PATH)/,$(SRC_FILES2))
@@ -52,12 +53,12 @@ pw: $(NAME2)
 
 all: ch pw
 
-$(NAME1): libftcomp $(OBJS1) $(LIB) $(SRCS1)
+$(NAME1): libftcomp $(OBJS1) $(LIB) $(OBJS1)
 	@echo "\033[31;5;mCompiling checker...\033[0m"
 	gcc $(SRCS1) $(CFLAGS) -I$(INCLUDES_PATH) $(LIB) -o $(NAME1)
 	@echo "\033[32;3m\nCompiling Done !\033[0m"
 
-$(NAME2): libftcomp $(OBJS2) $(LIB)
+$(NAME2): libftcomp $(OBJS2) $(LIB) $(OBJS2)
 	@echo "\033[31;5;mCompiling push_swap...\033[0m"
 	gcc $(SRCS2) $(CFLAGS) -I$(INCLUDES_PATH) $(LIB) -o $(NAME2)
 	@echo "\033[32;3m\nCompiling Done !\033[0m"

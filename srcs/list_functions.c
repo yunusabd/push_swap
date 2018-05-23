@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 00:12:53 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/19 13:47:01 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/22 12:02:50 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	create_moves(t_frame *stacks, int move)
 
 void	delete_move(t_frame *stacks, t_moves *move)
 {
-	if (stacks->moves)
+	if ((stacks->moves))
 	{
 		move->prev->next = move->next;
 		move->next->prev = move->prev;
