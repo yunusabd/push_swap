@@ -6,7 +6,7 @@
 /*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 17:08:37 by aschukin          #+#    #+#             */
-/*   Updated: 2018/05/23 18:20:34 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/25 01:02:47 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void		print_moves_count(t_frame *stacks)
 	printf("--> %d moves for %d numbers.\n", i, count_list(stacks->a));
 }
 
-static void		print_usage()
+static void		print_usage(void)
 {
 	printf("Usage:\n\t./push_swap \"50 40 60\" OR ./push_swap 50 40 60\n");
 	printf("Options:\n\t[-c (colored moves)]\n");
@@ -78,10 +78,7 @@ int				main(int ac, char **av)
 	solver(stacks);
 	while (optimizer(stacks, stacks->moves) == 1)
 		ac++;
-	if (stacks->flags & MOVES)
-		print_moves_count(stacks);
-	else
-		print_moves(stacks);
+	(stacks->flags & MOVES) ? print_moves_count(stacks) : print_moves(stacks);
 	free_stacks(stacks);
 	free(stacks);
 	return (0);

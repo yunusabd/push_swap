@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 20:25:10 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/06 17:06:23 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/25 15:25:35 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ long		ft_atoi_l(const char *str)
 		i++;
 	if ((str[i] == '-' || str[i] == '+'))
 		negative = (str[i++] == '-') ? 1 : 0;
+	while (str[i] == '0')
+		i++;
 	if (!(ft_isdigit(str[i])))
 		return (0);
 	while (ft_isdigit(str[i]) == 1)

@@ -6,17 +6,17 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 02:08:41 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/19 20:21:57 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/25 01:03:50 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		optimizer(t_frame *stacks, t_moves *moves)
+static int	check_ra(t_frame *stacks)
 {
 	t_moves	*tmp;
 
-	tmp = moves;
+	tmp = stacks->moves;
 	while (tmp->next != stacks->moves)
 	{
 		if ((tmp->move == RA && tmp->next->move == RB) ||
@@ -29,7 +29,14 @@ int		optimizer(t_frame *stacks, t_moves *moves)
 		else
 			tmp = tmp->next;
 	}
-	tmp = moves;
+	return (0);
+}
+
+static int	check_pa(t_frame *stacks)
+{
+	t_moves	*tmp;
+
+	tmp = stacks->moves;
 	while (tmp->next != stacks->moves)
 	{
 		if ((tmp->move == PA && tmp->next->move == PB) ||
@@ -41,7 +48,14 @@ int		optimizer(t_frame *stacks, t_moves *moves)
 		}
 		tmp = tmp->next;
 	}
-	tmp = moves;
+	return (0);
+}
+
+static int	check_rra(t_frame *stacks)
+{
+	t_moves	*tmp;
+
+	tmp = stacks->moves;
 	while (tmp->next != stacks->moves)
 	{
 		if ((tmp->move == RRA && tmp->next->move == RA) ||
@@ -53,7 +67,14 @@ int		optimizer(t_frame *stacks, t_moves *moves)
 		}
 		tmp = tmp->next;
 	}
-	tmp = moves;
+	return (0);
+}
+
+static int	check_rrb(t_frame *stacks)
+{
+	t_moves	*tmp;
+
+	tmp = stacks->moves;
 	while (tmp->next != stacks->moves)
 	{
 		if ((tmp->move == RRB && tmp->next->move == RB) ||
@@ -65,6 +86,21 @@ int		optimizer(t_frame *stacks, t_moves *moves)
 		}
 		tmp = tmp->next;
 	}
+	return (0);
+}
+
+int			optimizer(t_frame *stacks, t_moves *moves)
+{
+	t_moves	*tmp;
+
+	if (check_ra(stacks))
+		return (1);
+	if (check_pa(stacks))
+		return (1);
+	if (check_rra(stacks))
+		return (1);
+	if (check_rrb(stacks))
+		return (1);
 	tmp = moves;
 	while (tmp->next != stacks->moves)
 	{
@@ -79,4 +115,3 @@ int		optimizer(t_frame *stacks, t_moves *moves)
 	}
 	return (0);
 }
-

@@ -6,7 +6,7 @@
 #    By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/19 13:45:52 by yabdulha          #+#    #+#              #
-#    Updated: 2018/05/23 17:47:23 by yabdulha         ###   ########.fr        #
+#    Updated: 2018/05/25 15:05:22 by yabdulha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,13 @@ SRCS_PATH = srcs
 SRC_FILES1 = checker.c create_clist.c error_parser.c remove_clist.c swap.c \
 			 rotate.c reverse_rotate.c push.c error_handler.c print_stacks.c \
 			 get_input.c get_next_line.c jump_table.c check_sorted.c solver.c \
-			 normalize.c list_functions.c optimizer.c options.c color.c
+			 normalize.c list_functions.c optimizer.c options.c color.c \
+			 rotate_shortcuts.c distance.c sort_back.c
 SRC_FILES2 = push_swap.c create_clist.c error_parser.c remove_clist.c swap.c \
 			 rotate.c reverse_rotate.c push.c error_handler.c print_stacks.c \
 			 jump_table.c check_sorted.c solver.c normalize.c list_functions.c \
-			 optimizer.c options.c color.c
+			 optimizer.c options.c color.c distance.c rotate_shortcuts.c \
+			 sort_back.c
 
 SRCS1 = $(addprefix $(SRCS_PATH)/,$(SRC_FILES1))
 SRCS2 = $(addprefix $(SRCS_PATH)/,$(SRC_FILES2))

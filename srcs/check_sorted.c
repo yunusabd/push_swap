@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 00:59:44 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/14 21:39:52 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/23 22:00:34 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		is_sorted(t_frame *stacks)
 }
 
 /*
-** Check if elements are in the right order, but the first element isn't 
+** Check if elements are in the right order, but the first element isn't
 ** neccessarily the smallest number.
 */
 

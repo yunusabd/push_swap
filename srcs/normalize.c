@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 16:53:10 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/21 22:04:24 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/25 00:32:56 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void			sort_array(int *arr, int end)
 	int	j;
 
 	i = 0;
+	if (!arr)
+		return ;
 	while (i < end - 1)
 	{
 		if (arr[i] > arr[i + 1])

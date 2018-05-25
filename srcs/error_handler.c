@@ -6,17 +6,11 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 21:04:28 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/22 11:45:43 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/25 15:38:31 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void		error_exit(t_frame *stacks)
-{
-	free_stacks(stacks);
-	exit(1);
-}
 
 static void	free_moves(t_frame *stacks)
 {
@@ -60,6 +54,12 @@ void		free_stacks(t_frame *stacks)
 		remove_head(&(stacks->b));
 		stacks->b = NULL;
 	}
-	if (stacks->moves)
-		free_moves(stacks);
+	free_moves(stacks);
+}
+
+void		error_exit(t_frame *stacks)
+{
+	free_stacks(stacks);
+	free(stacks);
+	exit(1);
 }

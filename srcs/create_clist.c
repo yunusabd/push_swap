@@ -6,13 +6,13 @@
 /*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/14 18:20:38 by aschukin          #+#    #+#             */
-/*   Updated: 2018/05/06 21:39:40 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/23 22:05:44 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_clist*	create_clist(int data, t_frame *stacks)
+t_clist	*create_clist(int data, t_frame *stacks)
 {
 	t_clist	*head;
 

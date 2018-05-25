@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/19 13:50:26 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/23 17:45:48 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/25 00:58:38 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct	s_frame
 	t_clist	*b;
 	t_moves	*moves;
 	short	flags;
+	short	p;
 }				t_frame;
 
 typedef struct	s_line
@@ -80,6 +81,7 @@ typedef struct	s_rotate
 	int		maxdist2;
 	int		mindist2;
 	int		sorted[4];
+	int		flag;
 }				t_rotate;
 
 t_clist			*normalize(t_frame *stacks, t_clist *new, int i, int j);
@@ -96,17 +98,26 @@ void			jt(uint8_t jump_index, t_frame *stacks);
 int				count_list(t_clist *stack);
 
 int				get_median(t_clist *stack, int len);
+int				get_max(t_clist *stack);
+int				get_min(t_clist *stack);
+int				get_dist(t_clist *stack, int nb);
 int				count_list(t_clist *stack);
 void			sort_array(int *arr, int end);
+t_rotate		*parse_info(t_clist *stack);
+
+void			push_biggest(t_frame *stacks, t_rotate *info);
+void			push_smallest(t_frame *stacks, t_rotate *info);
+void			smart_rotate(t_frame *stacks);
+void			sort_back_a(t_frame *stacks, int len);
+int				sort_back(t_frame *stacks, int len);
 
 char			*get_color(int m);
 void			display_stacks(t_frame *stacks, char *s);
-void			display_printf(t_frame *frame, int a_flag, int b_flag);
 
 int				right_order(t_clist *stack);
 int				solver(t_frame *stacks);
-int				get_min(t_clist *stack);
-void			split_a(t_frame *stacks, int len);
+void			five(t_frame *stacks);
+void			split_a(t_frame *stacks, int len, int i, int flag);
 void			quicksort(t_frame *stacks, int len);
 
 void			error_exit(t_frame *stacks);

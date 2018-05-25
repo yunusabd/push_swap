@@ -6,7 +6,7 @@
 /*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/15 17:08:37 by aschukin          #+#    #+#             */
-/*   Updated: 2018/05/23 18:22:02 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/25 15:11:16 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,8 @@ void			display_stacks(t_frame *stacks, char *command)
 	printf("\E[48;55;208m");
 	printf("\033[1m\033[35m");
 	printf("%15s   %-15s", "Stack A", "Stack B");
-	printf("");
 	if (stacks->flags & COLORS)
-		printf("\tCurrent move2:\t%s%s\033[0m\n", get_color(stacks->moves->move),
+		printf("\tCurrent move:\t%s%s\033[0m\n", get_color(stacks->moves->move),
 				command);
 	else
 		printf("\tCurrent move:\t%s\n", command);
@@ -104,5 +103,6 @@ int				main(int ac, char **av)
 		display_stacks(stacks, "\033[31;5;mEND\033[0m");
 	printf((is_sorted(stacks) == 1) ? "OK\n" : "KO\n");
 	free_stacks(stacks);
+	free(stacks);
 	return (0);
 }

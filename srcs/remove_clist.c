@@ -6,7 +6,7 @@
 /*   By: aschukin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/05 17:35:17 by aschukin          #+#    #+#             */
-/*   Updated: 2018/05/12 21:01:33 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/25 00:57:40 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	remove_element(t_clist **head, t_clist *element)
 		element->prev->next = element->next;
 		element->next->prev = element->prev;
 		free(element);
-
 	}
 }
 

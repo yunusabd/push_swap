@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/05 22:04:32 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/23 16:12:37 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/25 15:55:03 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int			check_duplicate(t_clist *head)
 		{
 			if (tmp2->data == tmp1->data)
 			{
-				return (0);
+				return (1);
 			}
 			tmp2 = tmp2->next;
 		}
 		tmp1 = tmp1->next;
 	}
-	return (1);
+	return (0);
 }
 
 /*
@@ -74,13 +74,25 @@ static int	check_content(const char *str, t_frame *stacks)
 static int	check_numlen(const char *str, t_frame *stacks)
 {
 	int		i;
+	int		j;
 
 	i = 0;
-	while (str[i] != '\0' && (str[i] == '-' ||
-				str[i] == '+' || ft_isdigit(str[i])))
+	j = 0;
+	while (str[i])
 	{
+		while (str[i] && str[i] == '0')
+			i++;
+		if (str[i] && (str[i] == '-' || str[i] == '+') &&
+				ft_isdigit(str[i + 1]) && (i == 0 || str[i - 1] == ' '))
+			i++;
+		else
+			break ;
+	}
+	while (str[i] != '\0' && ft_isdigit(str[i]))
+	{
+		j++;
 		i++;
-		if (i > 11)
+		if (j > 11)
 			error_exit(stacks);
 	}
 	return (i);
@@ -126,7 +138,9 @@ void		parser(char **av, t_frame *stacks)
 		{
 			check_content(av[i], stacks);
 			fill_stack(av[i], stacks);
+			if (check_duplicate(stacks->a))
+				error_exit(stacks);
 			i++;
 		}
-	}	
+	}
 }
