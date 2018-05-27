@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 23:42:44 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/24 23:43:29 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/27 21:21:00 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,8 @@ t_rotate		*parse_info(t_clist *stack)
 	t_rotate	*info;
 	int			counter;
 
-	if (!stack)
+	if (!stack || !(info = (t_rotate*)malloc(sizeof(*info))))
 		return (NULL);
-	info = (t_rotate*)malloc(sizeof(*info));
 	counter = 0;
 	info->min = get_min(stack);
 	info->max = get_max(stack);

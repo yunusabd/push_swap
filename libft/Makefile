@@ -5,10 +5,11 @@
 #                                                     +:+ +:+         +:+      #
 #    By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/11/10 22:06:52 by yabdulha          #+#    #+#              #
-#    Updated: 2018/05/06 17:07:28 by yabdulha         ###   ########.fr        #
+#    Created: 2018/05/25 16:29:49 by yabdulha          #+#    #+#              #
+#    Updated: 2018/05/25 18:42:59 by yabdulha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 NAME = libft.a
 CC = gcc
@@ -29,6 +30,9 @@ FILES = ft_putchar ft_putstr ft_strcmp ft_strlen ft_strdup ft_strcpy ft_strcat \
 		ft_strmap_p
 FT_C =	$(patsubst %,%.c,$(FILES))
 OBJ  =	$(patsubst %,%.o,$(FILES))
+PRINTF_PATH = ft_printf/
+PRINTF_NAME = libftprintf.a
+FT_PRINTF = $(addprefix $(PRINTF_PATH),$(PRINTF_NAME))
 
 .PHONY: all clean fclean re
 

@@ -6,13 +6,11 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/05 22:04:32 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/25 15:55:03 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/27 21:19:45 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <limits.h>
-#include <stdio.h>
 
 /*
 ** Traverse through the list and check if a number occurs twice.

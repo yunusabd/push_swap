@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 19:41:38 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/25 00:45:12 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/26 01:18:00 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@ void			smart_rotate(t_frame *stacks)
 {
 	t_rotate	*info;
 
-	if (!stacks->a)
+	if (!(stacks->a) || !(info = parse_info(stacks->b)))
 		return ;
-	info = parse_info(stacks->b);
 	if ((ABS(info->maxdist)) - 1 <= (ABS(info->mindist)) &&
 		((ABS(info->maxdist)) - 1 <= (ABS(info->mindist2))))
 		push_biggest(stacks, info);

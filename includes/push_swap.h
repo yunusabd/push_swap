@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/19 13:50:26 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/25 00:58:38 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/27 20:42:05 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,8 @@
 
 # include "../libft/libft.h"
 # include "get_next_line.h"
+# include "ft_printf.h"
 # include <stdlib.h>
-# include <limits.h>
-# include <stdio.h>
-
-// rrr, rra, rrb, rr, ra, rb, ss, sa, sb, pa, pb
 
 # define ABS(X) (X < 0) ? -X : X
 
@@ -112,7 +109,7 @@ void			sort_back_a(t_frame *stacks, int len);
 int				sort_back(t_frame *stacks, int len);
 
 char			*get_color(int m);
-void			display_stacks(t_frame *stacks, char *s);
+void			init_vis(t_frame *stacks, char *s, int i);
 
 int				right_order(t_clist *stack);
 int				solver(t_frame *stacks);
@@ -121,6 +118,7 @@ void			split_a(t_frame *stacks, int len, int i, int flag);
 void			quicksort(t_frame *stacks, int len);
 
 void			error_exit(t_frame *stacks);
+void			exit_push_swap(t_frame *stacks);
 void			free_stacks(t_frame *stacks);
 void			remove_element(t_clist **head, t_clist *element);
 void			remove_first_element(t_clist *head);

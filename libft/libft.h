@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/20 18:32:51 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/06 17:07:48 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/26 00:42:10 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ char				*ft_itoa_base(long long value, int base);
 int					ft_numlen(int nb, int base);
 int					ft_numlen_ll(long long nb, int base);
 char				*ft_itoa_base_u(unsigned long long value, int base);
+char				*ft_itoa_base_max(intmax_t value, int base);
 int					ft_numlen_max(intmax_t nb, int base);
 int					ft_numlen_umax(uintmax_t nb, int base);
 char				ft_tolowercase(char c);

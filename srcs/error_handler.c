@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 21:04:28 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/05/25 15:38:31 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/05/27 19:24:33 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	free_moves(t_frame *stacks)
 		}
 		delete_move(stacks, stacks->moves);
 	}
+	stacks->moves = NULL;
 }
 
 void		free_stacks(t_frame *stacks)
@@ -61,5 +62,13 @@ void		error_exit(t_frame *stacks)
 {
 	free_stacks(stacks);
 	free(stacks);
+	write(2, "Error\n", 6);
 	exit(1);
+}
+
+void		exit_push_swap(t_frame *stacks)
+{
+	free_stacks(stacks);
+	free(stacks);
+	exit(0);
 }
